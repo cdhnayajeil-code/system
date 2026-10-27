@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>총무 담당자 연락처 · 시스템 접속정보</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#fff; --line:#e3e6ea; --tx:#1f2328; --tx2:#5b6572;
+    --acc:#1f5eff; --acc-bg:#eef3ff; --ok:#0a7d4b; --off:#98a2b3;
+    --warn:#b54708; --warn-bg:#fff7e6; --lock:#5b3fd6; --lock-bg:#f2effd;
+    --sec:#f3f5f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:"Malgun Gothic","맑은 고딕",-apple-system,Segoe UI,sans-serif;font-size:14px;line-height:1.5}
+  .wrap{max-width:1360px;margin:0 auto;padding:22px 20px 60px}
+  header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-size:21px;margin:0;letter-spacing:-.02em}
+  .meta{color:var(--tx2);font-size:12.5px}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:16px 0 0;border-bottom:1px solid var(--line)}
+  .tab{padding:9px 18px;border:1px solid transparent;border-bottom:0;border-radius:8px 8px 0 0;
+    cursor:pointer;color:var(--tx2);font-size:13.5px;position:relative;top:1px;background:transparent}
+  .tab:hover{background:#eceff3}
+  .tab.on{background:var(--card);border-color:var(--line);color:var(--tx);font-weight:600}
+  .tab .n{font-size:11.5px;color:var(--off);margin-left:6px}
+  .tab.vault.on{color:var(--lock)}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 10px}
+  input[type=search],input[type=password]{padding:10px 12px;border:1px solid var(--line);
+    border-radius:8px;background:var(--card);font-size:14px;font-family:inherit}
+  input[type=search]{flex:1;min-width:220px}
+  input:focus{outline:2px solid var(--acc-bg);border-color:var(--acc)}
+  button{padding:9px 14px;border:1px solid var(--line);background:var(--card);border-radius:8px;
+    cursor:pointer;font-family:inherit;font-size:13px;color:var(--tx)}
+  button:hover{background:#f0f2f5}
+  button.p{background:var(--acc);border-color:var(--acc);color:#fff}
+  button.p:hover{filter:brightness(1.08)}
+  button.lk{background:var(--lock);border-color:var(--lock);color:#fff}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .chip{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);
+    cursor:pointer;font-size:12.5px;color:var(--tx2)}
+  .chip .n{color:var(--off);margin-left:4px;font-size:11.5px}
+  .chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  .chip.on .n{color:rgba(255,255,255,.75)}
+  .tablebox{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:900px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#fafbfc;font-size:12.5px;color:var(--tx2);font-weight:600;white-space:nowrap;cursor:pointer;user-select:none}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover td{background:#fafbfd}
+  tr.sec td{background:var(--sec);font-weight:600;font-size:12.5px;color:var(--tx);padding:7px 12px}
+  tr.sec td .n{color:var(--tx2);font-weight:400;margin-left:6px}
+  tr.sec:hover td{background:var(--sec)}
+  .cat{display:inline-block;padding:2px 9px;border-radius:5px;background:var(--acc-bg);
+    color:var(--acc);font-size:12px;white-space:nowrap}
+  .co{font-weight:600}
+  .tel{color:var(--tx);text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tel:hover{color:var(--acc);text-decoration:underline}
+  .tel.of{color:var(--tx2);font-size:12.5px}
+  a.mail{color:var(--tx2);text-decoration:none;font-size:12.5px;word-break:break-all}
+  a.mail:hover{color:var(--acc);text-decoration:underline}
+  .sub{color:var(--tx2);font-size:12.5px;word-break:break-word}
+  .pos{color:var(--tx2);font-size:12px}
+  .empty{padding:40px;text-align:center;color:var(--tx2)}
+  footer{margin-top:16px;color:var(--tx2);font-size:12px;line-height:1.8}
+  code{background:#eceff3;padding:1px 5px;border-radius:4px;font-size:12px}
+
+  /* 금고 */
+  .gate{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:36px 28px;text-align:center}
+  .gate h2{margin:0 0 6px;font-size:17px}
+  .gate p{margin:0 0 20px;color:var(--tx2);font-size:13px}
+  .gate .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .gate input{min-width:240px}
+  .err{color:#b42318;font-size:13px;margin-top:12px;min-height:18px}
+  .lockbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--lock-bg);
+    border:1px solid #ddd6fb;border-radius:10px;padding:9px 14px;margin-bottom:12px;font-size:12.5px;color:#4c34bf}
+  .pw{font-family:Consolas,"D2Coding",monospace;font-size:13.5px;letter-spacing:.02em;word-break:break-all}
+  .pw.hide{color:transparent;text-shadow:0 0 7px rgba(31,35,40,.75);user-select:none}
+  .mini{padding:2px 7px;font-size:11.5px;border-radius:5px;margin-left:6px;vertical-align:1px}
+  .mini.dgr{color:#b42318;border-color:#f2c9c5}
+  .mini.dgr:hover{background:#fdeceb}
+  .warnbox{background:var(--warn-bg);border:1px solid #f5d9a8;color:var(--warn);
+    border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12.5px}
+  /* 정기업무 · 인증서 일정 */
+  .schedbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;padding:9px 14px;margin-bottom:12px;font-size:12.5px;color:var(--tx2)}
+  .schedbar.dirty{background:var(--warn-bg);border-color:#f5d9a8;color:var(--warn)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-bottom:12px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:0}
+  .stat .k{display:block;font-size:11.5px;color:var(--off)}
+  .stat b{display:block;font-size:21px;line-height:1.25;letter-spacing:-.02em;margin:1px 0}
+  .stat .s{display:block;font-size:11.5px;color:var(--tx2);min-height:16px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stat.bad b{color:#b42318}  .stat.warn b{color:var(--warn)}
+  .stat.ok b{color:var(--ok)} .stat.mut b{color:var(--off)}
+
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:start;margin-bottom:12px}
+  .cols>.calwrap,.side>.daybox{margin-bottom:0}
+  .side{display:flex;flex-direction:column;gap:12px;min-width:0}
+  @media(max-width:1020px){.cols{grid-template-columns:1fr}}
+  .urow{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .urow:last-child{border-bottom:0;padding-bottom:0}
+  .urow .dot{margin-top:6px;flex:none}
+  .ub{min-width:0;flex:1}
+  .ub b{display:block;font-size:13px;line-height:1.4;word-break:break-word}
+  .ub .sub{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}
+  .ua{margin-top:5px}
+  .ua .mini:first-child{margin-left:0}
+  .none{color:var(--off);font-size:12.5px;padding:6px 0}
+  .cut{display:block;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nw{white-space:nowrap}
+  td[data-ic]{cursor:text}
+  tbody tr:hover td[data-ic]:hover{background:#eef3ff;box-shadow:inset 0 0 0 1px #cddcff}
+  .icin{width:100%;min-width:90px;padding:5px 7px;border:1px solid var(--acc);border-radius:6px;
+    font-family:inherit;font-size:13px;color:var(--tx);background:#fff}
+  .qid{max-width:120px}
+  .sum{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .badge{display:inline-block;padding:2px 9px;border-radius:5px;font-size:12px;white-space:nowrap;
+    background:#eef1f5;color:var(--tx2)}
+  .badge.ok{background:#e7f6ee;color:var(--ok)}
+  .badge.warn{background:var(--warn-bg);color:var(--warn)}
+  .badge.bad{background:#fdeceb;color:#b42318}
+  .badge.off{background:#f0f2f5;color:var(--off)}
+
+  .calwrap{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+  .calhead{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .calhead b{font-size:15px;min-width:104px;text-align:center}
+  .legend{margin-left:auto;color:var(--off);font-size:11.5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;
+    vertical-align:1px;background:var(--off)}
+  .dot.routine{background:var(--acc)} .dot.cert{background:#d92d20}
+  .dot.alert{background:#e79a3c}      .dot.log{background:var(--ok)}
+  .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .cw{text-align:center;font-size:11.5px;color:var(--off);padding:2px 0}
+  .cw.sun,.dn.sun{color:#c0392b}
+  .cw.sat,.dn.sat{color:#1f5eff}
+  .cd{min-height:60px;border:1px solid transparent;border-radius:8px;padding:4px 6px;
+    cursor:pointer;overflow:hidden}
+  .cd.off{cursor:default}
+  .cd:hover{background:#f4f6f9}
+  .cd.today .dn{color:var(--acc);font-weight:700}
+  .cd.sel{background:var(--acc-bg);border-color:#cddcff}
+  .dn{font-size:12px;color:var(--tx2);display:block;margin-bottom:2px}
+  .ev{display:block;font-size:11px;line-height:1.5;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis;color:var(--tx2)}
+  .ev::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;
+    margin-right:4px;vertical-align:2px;background:var(--off)}
+  .ev.routine::before{background:var(--acc)} .ev.cert::before{background:#d92d20}
+  .ev.alert::before{background:#e79a3c}       .ev.log::before{background:var(--ok)}
+  .ev.done{color:var(--off);text-decoration:line-through}
+  .strike{text-decoration:line-through;opacity:.5}
+  .more{font-size:10.5px;color:var(--off);margin-left:9px}
+
+  .quick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+  .quick input{padding:9px 11px;border:1px solid var(--line);border-radius:8px;
+    font-family:inherit;font-size:13.5px;color:var(--tx);background:#fff}
+  .quick input[type=text]{flex:1;min-width:220px;font-size:14px}
+  .daybox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+  .daybox h3{margin:0 0 8px;font-size:13.5px}
+  .dlist{display:flex;flex-direction:column;gap:7px}
+  .drow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;
+    border-bottom:1px dashed var(--line);padding-bottom:7px}
+  .drow:last-child{border-bottom:0;padding-bottom:0}
+  .dt{font-variant-numeric:tabular-nums;color:var(--tx2);font-size:12.5px;min-width:86px}
+  .grow{flex:1}
+  h2.sh{font-size:14px;margin:18px 0 8px}
+  h2.sh .sub{font-weight:400}
+
+  .modal{position:fixed;inset:0;background:rgba(15,20,28,.45);display:none;z-index:50;
+    align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+  .modal.on{display:flex}
+  .mbox{background:var(--card);border-radius:12px;width:min(560px,100%);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .mhead,.mfoot{display:flex;gap:8px;align-items:center;padding:12px 16px}
+  .mhead{border-bottom:1px solid var(--line);font-size:14px}
+  .mhead b{flex:1}
+  .mfoot{border-top:1px solid var(--line)}
+  .mbody{padding:12px 16px;max-height:60vh;overflow:auto;display:flex;flex-direction:column;gap:9px}
+  .mbody label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--tx2)}
+  .mbody input,.mbody select,.mbody textarea{padding:8px 10px;border:1px solid var(--line);border-radius:7px;
+    font-family:inherit;font-size:13.5px;color:var(--tx);background:#fff;width:100%}
+  .mbody textarea{resize:vertical}
+
+  /* 일괄 붙여넣기 — 붙여넣은 여러 줄을 표로 펼쳐 고친 뒤 한꺼번에 등록한다 */
+  .mbox.wide{width:min(1360px,100%)}
+  .bwrap{padding:12px 16px}
+  .bhint{margin:0 0 10px;font-size:12.5px;color:var(--tx2);line-height:1.75}
+  .bhint code{background:var(--sec);padding:1px 5px;border-radius:4px;font-size:11.5px}
+  #bpaste{width:100%;min-height:210px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;
+    font-family:inherit;font-size:13px;line-height:1.65;color:var(--tx);background:#fff;resize:vertical}
+  #bpaste:focus{outline:2px solid var(--acc-bg);border-color:var(--acc)}
+  .bscroll{max-height:54vh;overflow:auto}
+  .btab{min-width:0}
+  .btab th{position:sticky;top:0;z-index:1;background:#fafbfc;padding:7px 6px;cursor:default}
+  .btab td{padding:3px 5px;vertical-align:middle}
+  .btab input,.btab select{width:100%;padding:5px 7px;border:1px solid var(--line);border-radius:6px;
+    font-family:inherit;font-size:12.5px;color:var(--tx);background:#fff}
+  .btab input[type=checkbox]{width:auto}
+  .btab tr.off td{opacity:.42}
+  .btab tr.dup input:not([type=checkbox]){background:var(--warn-bg)}
+  .bno{text-align:center;color:var(--tx2);font-size:11.5px;white-space:nowrap}
+  .bwarn{color:var(--warn);font-size:11px}
+  @media print{.tabs,.bar,.chips,.lockbar,.schedbar,.quick,.modal,footer{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>총무 담당자 연락처 · 시스템 접속정보</h1>
+    <span class="meta">제일엠앤에스 총무팀 · 최종 갱신 <b id="upd">-</b></span>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="panel"></div>
+
+  <footer>
+    제일엠앤에스 총무팀 · 모든 탭을 화면에서 바로 추가·수정·삭제할 수 있습니다 (칸을 클릭하면 그 자리에서 수정)<br>
+    고친 뒤 <b>저장 — 내려받기</b> → <code>정보관리.cmd</code> 로 회수 :
+    연락처 <code>contacts.json</code> [7] · 접속정보 <code>credentials.enc.json</code> [8] · 일정 <code>schedule.json</code> [5]<br>
+    자세한 규칙은 <code>README.md</code>
+  </footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mhead"><b id="mtitle"></b><button class="mini" id="mclose">닫기</button></div>
+    <div class="mbody" id="mbody"></div>
+    <div class="mfoot">
+      <button class="mini" id="mdel">삭제</button>
+      <span class="grow"></span>
+      <button class="mini" id="mcancel">취소</button>
+      <button class="mini p" id="msave">저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="bulk">
+  <div class="mbox wide">
+    <div class="mhead"><b id="btitle"></b><button class="mini" id="bclose">닫기</button></div>
+    <div class="bwrap" id="bbody"></div>
+    <div class="mfoot">
+      <span class="meta" id="bmeta"></span>
+      <span class="grow"></span>
+      <button class="mini" id="bback">다시 붙여넣기</button>
+      <button class="mini" id="bcancel">취소</button>
+      <button class="mini p" id="bsave">등록</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* === CONTACTS_DATA:START (Sync-Contacts.ps1 이 자동 생성 — 직접 편집 금지) === */
+const DATA = {
+  "updatedAt": "2026-08-26",
+  "revision": 1,
+  "groups": ["총무·시설","IT·인프라","사업·지원"],
+  "categories": ["임대·건물","주차","급식·식수","사무기기·비품","시설·공사","ERP","그룹웨어","문서관리","네트워크·통신","IDC·호스팅","백업·인프라","SW·라이선스","SW·서비스","스마트공장","PLM","AI","컨설팅","회계·감사","관공서·지원기관"],
+  "contacts": [
+    {"id":"C-001","group":"총무·시설","category":"임대·건물","company":"굿타워(굿프린팅)","person":"송인덕","position":"이사","mobile":"010-8835-5999","office":"","email":"","scope":"임대인 — 임대차 대표 연락처","note":"현 서울사무소(굿타워 3층)","source":"굿타워관련_연락처.MD","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-002","group":"총무·시설","category":"임대·건물","company":"굿프린팅 경리부","person":"","position":"","mobile":"","office":"02-2260-9047","email":"","scope":"세금계산서 등 일반관리·서류업무","note":"사업자등록번호 201-86-07857","source":"굿타워관련_연락처.MD","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-003","group":"총무·시설","category":"임대·건물","company":"에메랄드빌딩","person":"","position":"","mobile":"","office":"","email":"","scope":"구 서울사무소 임대료·관리비 청구처","note":"담당자 연락처 미확보 — 관리소장 별도 등록","source":"임대료,관리비\\에메랄드빌딩","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-004","group":"총무·시설","category":"임대·건물","company":"에메랄드빌딩 관리사무소","person":"","position":"관리소장","mobile":"010-8761-3772","office":"","email":"","scope":"건물 관리","note":"구 서울사무소(에메랄드빌딩)","source":"주소록.xlsx","srcId":"D-033","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-005","group":"총무·시설","category":"주차","company":"굿타워","person":"서진원","position":"소장","mobile":"010-6339-9055","office":"","email":"","scope":"주차 관리, 화물용 승강기(공사자재 하차)","note":"","source":"굿타워관련_연락처.MD / 주차\\굿타워_주차타워_이용안내.html","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-006","group":"총무·시설","category":"주차","company":"굿타워 주차장","person":"","position":"","mobile":"010-3732-5852","office":"","email":"","scope":"주차장 현장 문의","note":"현장 안내판 기재 번호, 업체명 미기재","source":"주차\\굿타워_주차타워_이용안내.html","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-007","group":"총무·시설","category":"급식·식수","company":"오늘의밥상 영창점","person":"권영주","position":"대표","mobile":"","office":"","email":"","scope":"구내식당 식사이용 계약","note":"사업자번호 840-85-03038 / 계약 2026-08-10부터 1년","source":"식수정산\\오늘의밥상 계약서","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-008","group":"총무·시설","category":"급식·식수","company":"유한회사 애플이엔씨","person":"최준식","position":"대표이사","mobile":"","office":"","email":"","scope":"종전 구내식당(식대) 거래처","note":"회생채권 시부인 관련 — 연락처 미확보","source":"회생관련 금액정리","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-009","group":"총무·시설","category":"사무기기·비품","company":"지리산유통","person":"","position":"","mobile":"010-9843-1688","office":"","email":"","scope":"커피머신 유지보수 / 원두·소모품 공급","note":"계약형태·단가·점검주기 확인 필요","source":"총무팀 직접 확보","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-010","group":"총무·시설","category":"시설·공사","company":"희망디자인","person":"손정호","position":"대표","mobile":"010-9056-7897","office":"","email":"","scope":"인테리어 공사","note":"굿타워 3층 인테리어","source":"굿타워관련_연락처.MD","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-012","group":"IT·인프라","category":"ERP","company":"비젠아이","person":"김문협","position":"차장","mobile":"010-2819-3925","office":"","email":"jejuguy@bizeni.com","scope":"UniERP 컨설팅 PL","note":"","source":"주소록.xlsx","srcId":"D-007","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-011","group":"IT·인프라","category":"ERP","company":"비젠아이","person":"김영수","position":"대리","mobile":"010-8121-8071","office":"","email":"onse3277@bizeni.com","scope":"UniERP 개발","note":"","source":"주소록.xlsx","srcId":"D-008","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-015","group":"IT·인프라","category":"ERP","company":"비젠아이","person":"박준원","position":"부장","mobile":"010-9063-4902","office":"","email":"waterguy@bizeni.com","scope":"UniERP 개발","note":"","source":"주소록.xlsx","srcId":"D-009","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-014","group":"IT·인프라","category":"ERP","company":"비젠아이","person":"우충수","position":"이사","mobile":"010-3375-9418","office":"","email":"cslight@bizeni.com","scope":"IDC 영업담당","note":"","source":"주소록.xlsx","srcId":"D-005","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-013","group":"IT·인프라","category":"ERP","company":"비젠아이","person":"유영균","position":"이사","mobile":"010-4012-8311","office":"","email":"youyg@bizeni.com","scope":"UniERP 컨설팅 PM","note":"","source":"주소록.xlsx","srcId":"D-006","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-019","group":"IT·인프라","category":"ERP","company":"비젠트로","person":"김대훈","position":"수석","mobile":"010-4878-1894","office":"","email":"doofus@bizentro.com","scope":"제일엠앤에스 유지보수 담당","note":"","source":"주소록.xlsx","srcId":"D-032","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-016","group":"IT·인프라","category":"ERP","company":"비젠트로","person":"김동욱","position":"선임","mobile":"","office":"","email":"dongwook.kim@bizentro.com","scope":"시스템 유지보수","note":"접속 IP 222.98.38.130","source":"주소록.xlsx","srcId":"D-031","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-018","group":"IT·인프라","category":"ERP","company":"비젠트로","person":"김병상","position":"상무","mobile":"010-4176-5102","office":"031-710-9713","email":"","scope":"ERP 유지보수 계약 담당(수급인)","note":"대표이사 김홍근 / 성남시 분당구 대왕판교로 660 유스페이스 1-A 10층","source":"ERP 유지보수 계약","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-017","group":"IT·인프라","category":"ERP","company":"비젠트로","person":"송영석","position":"책임","mobile":"010-3799-7231","office":"","email":"youngseok.song@bizentro.com","scope":"UniERP 영업담당","note":"","source":"주소록.xlsx","srcId":"D-004","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-020","group":"IT·인프라","category":"그룹웨어","company":"비젠트로","person":"오창준","position":"수석","mobile":"010-3627-1737","office":"","email":"changjun.oh@bizentro.com","scope":"그룹웨어 담당","note":"","source":"주소록.xlsx","srcId":"D-018","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-021","group":"IT·인프라","category":"그룹웨어","company":"세피스","person":"여원경","position":"","mobile":"010-5174-7580","office":"","email":"wgyeo@seffice.com","scope":"유지보수 담당","note":"","source":"주소록.xlsx","srcId":"D-023","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-023","group":"IT·인프라","category":"그룹웨어","company":"세피스","person":"이현국","position":"과장","mobile":"010-5743-3630","office":"","email":"hklee@seffice.com","scope":"유지보수 담당","note":"","source":"주소록.xlsx","srcId":"D-022","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-022","group":"IT·인프라","category":"그룹웨어","company":"세피스","person":"임철","position":"이사","mobile":"010-4760-3964","office":"","email":"clim@seffice.com","scope":"그룹웨어 영업담당자","note":"","source":"주소록.xlsx","srcId":"D-021","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-024","group":"IT·인프라","category":"그룹웨어","company":"지오유","person":"성경모","position":"컨설턴트","mobile":"010-6702-2355","office":"","email":"CUSTOMER@ZIOYOUCS.COM","scope":"","note":"","source":"주소록.xlsx","srcId":"D-019","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-026","group":"IT·인프라","category":"문서관리","company":"사이버다임","person":"강동욱","position":"대리","mobile":"010-8849-2952","office":"","email":"dongwuk.kang@cyberdigm.co.kr","scope":"클라우디움 구축담당자","note":"","source":"주소록.xlsx","srcId":"D-035","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-027","group":"IT·인프라","category":"문서관리","company":"사이버다임","person":"이재민","position":"과장","mobile":"010-7788-9987","office":"","email":"jaemin.lee@cyberdigm.co.kr","scope":"영업담당자","note":"","source":"주소록.xlsx","srcId":"D-034","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-025","group":"IT·인프라","category":"문서관리","company":"사이버다임","person":"정솔","position":"차장","mobile":"010-6223-2453","office":"","email":"sol.jung@cyberdign.co.kr","scope":"","note":"","source":"주소록.xlsx","srcId":"D-036","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-080","group":"IT·인프라","category":"네트워크·통신","company":"위드네트웍스","person":"","position":"","mobile":"","office":"1899-9481","email":"tech_support@withnetworks.com","scope":"KT 방화벽(AXGATE) 관리 — 기술지원 대표 문의·상담 창구","note":"관리 대상 방화벽 3대(FW-01 서울사무소 / FW-02 이천본사 / FW-03 IDC센터) — 관리번호·IP·위치는 `방화벽관리대장.md` 참조 / 담당 이훈 차장(C-029)·장정수 차장(C-028) / 문의 시 KT 서비스번호 함께 제시 — 서울 방화벽 W00131675(케어팩 W00139089)","source":"총무팀 직접 확보","srcId":"","lastContact":"2026-08-13","registeredAt":"2026-08-13","status":"활성"},
+    {"id":"C-029","group":"IT·인프라","category":"네트워크·통신","company":"위드네트웍스","person":"이훈","position":"차장","mobile":"","office":"02-569-5608","email":"","scope":"KT 방화벽(AXGATE) 관리 · 네트워크 장비 이전 설치공사","note":"사업자등록번호 120-87-47765 / 대표이사 안종업 / 기술지원 대표 1899-9481·tech_support@withnetworks.com(C-080)","source":"사무실이전\\네트워크","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-028","group":"IT·인프라","category":"네트워크·통신","company":"위드네트웍스","person":"장정수","position":"차장","mobile":"010-9284-1860","office":"","email":"fianlmeg@withnetworks.com","scope":"KT 방화벽(AXGATE) 관리 · 네트워크","note":"기술지원 대표 1899-9481·tech_support@withnetworks.com(C-080)","source":"주소록.xlsx","srcId":"D-030","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-031","group":"IT·인프라","category":"네트워크·통신","company":"KT","person":"김대웅","position":"차장","mobile":"010-7338-4242","office":"","email":"kimdw65@kt.com","scope":"영업담당","note":"서울사무소 KT 서비스번호 4건 — W00131675(AXGATE 방화벽)·W00139089(케어팩서비스)·W00139096(무선AP)·W00131676(무선랜 PoE스위치) / 케어팩 계약기간·보증범위 확인 요청 대상 / 상세는 `KT서비스번호대장.md`","source":"주소록.xlsx","srcId":"D-025","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-030","group":"IT·인프라","category":"네트워크·통신","company":"KT","person":"최형준","position":"","mobile":"010-9579-9997","office":"","email":"","scope":"영업담당 (성수동 이전)","note":"성수동 굿타워 이전 건 담당 / 서울사무소 KT 서비스번호 4건은 `KT서비스번호대장.md` 참조","source":"주소록.xlsx","srcId":"D-027","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-032","group":"IT·인프라","category":"네트워크·통신","company":"KT 기가오피스","person":"임다연","position":"","mobile":"","office":"","email":"","scope":"기가오피스 담당","note":"연락처 미확보 — KT 김다연 대리와 동일인 여부 확인 필요","source":"주소록.xlsx","srcId":"D-028","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-033","group":"IT·인프라","category":"네트워크·통신","company":"KT 기가오피스","person":"임성준","position":"차장","mobile":"010-6245-9154","office":"","email":"","scope":"기가오피스 담당 (서초)","note":"","source":"주소록.xlsx","srcId":"D-029","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-034","group":"IT·인프라","category":"네트워크·통신","company":"KT 기가오피스 서초센터","person":"","position":"","mobile":"","office":"02-3474-0099","email":"","scope":"기가오피스 대표번호","note":"","source":"주소록.xlsx","srcId":"D-026","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-081","group":"IT·인프라","category":"네트워크·통신","company":"KT 기업고객센터","person":"","position":"","mobile":"","office":"100 / 1588-0114","email":"","scope":"KT 회선·장비 장애접수 · 요금 · 계약 문의 대표번호","note":"조회 시 사업자등록번호(124-81-14298) + KT 서비스번호 제시 / 서울사무소 서비스번호 4건 — W00131675 AXGATE 방화벽 · W00139089 케어팩서비스 · W00139096 무선AP · W00131676 무선랜(PoE스위치) / 인터넷 회선 자체는 회선번호 02000100-0172 / 상세는 `KT서비스번호대장.md`","source":"총무팀 직접 확보","srcId":"","lastContact":"2026-08-13","registeredAt":"2026-08-13","status":"활성"},
+    {"id":"C-035","group":"IT·인프라","category":"네트워크·통신","company":"KT 서울강북액세스운용센터","person":"김다연","position":"대리","mobile":"010-9777-2827","office":"","email":"","scope":"기가오피스(행당 IDC) 이전 설치","note":"광진운용팀 / 행당 기가오피스 회선번호 02000100-0172 · 랙 07(자산라벨 0107) · 출입 사전요청 / KT 공식 회선 구성도 요청 대상","source":"사무실이전\\네트워크","srcId":"","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-036","group":"IT·인프라","category":"네트워크·통신","company":"LG유플러스","person":"심철용","position":"팀장","mobile":"010-5728-8248","office":"","email":"moondo@070uplus.com","scope":"네트워크 보안 / LG-IDC","note":"원본 표기 「심철용 탐장」","source":"주소록.xlsx","srcId":"D-020","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-037","group":"IT·인프라","category":"IDC·호스팅","company":"에이원네트웍스","person":"","position":"","mobile":"010-3450-6191","office":"","email":"webmaster@nidc.kr","scope":"IDC 관리담당","note":"","source":"주소록.xlsx","srcId":"D-010","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-038","group":"IT·인프라","category":"IDC·호스팅","company":"콘텐츠브릿지","person":"이광규","position":"대리","mobile":"010-2888-6479","office":"","email":"rhkdrb104@conbridge.co.kr","scope":"KT-IDC 영업","note":"","source":"주소록.xlsx","srcId":"D-024","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-039","group":"IT·인프라","category":"백업·인프라","company":"Veeam 백업","person":"","position":"","mobile":"","office":"","email":"","scope":"","note":"담당자·연락처 미확보","source":"주소록.xlsx","srcId":"D-039","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-040","group":"IT·인프라","category":"SW·라이선스","company":"시큐어플래닛","person":"서진용","position":"대표","mobile":"010-4535-0950","office":"","email":"jy@scpn.co.kr","scope":"MS Office·메일 납품","note":"","source":"주소록.xlsx","srcId":"D-037","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-041","group":"IT·인프라","category":"SW·라이선스","company":"오토데스크","person":"","position":"","mobile":"","office":"","email":"","scope":"설계 SW","note":"지원 페이지 https://www.autodesk.com/kr/support","source":"주소록.xlsx","srcId":"D-038","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-042","group":"IT·인프라","category":"SW·서비스","company":"쿠콘","person":"","position":"","mobile":"","office":"02-3779-9104","email":"","scope":"법인카드 상담센터","note":"","source":"주소록.xlsx","srcId":"D-040","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-043","group":"IT·인프라","category":"SW·서비스","company":"쿠콘","person":"이승조","position":"","mobile":"010-8903-7001","office":"","email":"seungjo0202@coocon.net","scope":"법인카드 연동","note":"","source":"주소록.xlsx","srcId":"D-011","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-051","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"강신균","position":"","mobile":"010-3301-8364","office":"","email":"ski.kang@samsung.com","scope":"경영지원실 실행팀","note":"","source":"주소록.xlsx","srcId":"D-052","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-044","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"기승","position":"위원","mobile":"010-6279-3420","office":"","email":"sung.ki@samsung.com","scope":"스마트공장 실행팀","note":"퇴사 후 개인사업","source":"주소록.xlsx","srcId":"D-047","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-052","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"김동욱","position":"센터장","mobile":"010-3150-3239","office":"","email":"dwkim386@samsung.com","scope":"센터장","note":"","source":"주소록.xlsx","srcId":"D-051","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-047","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"김민구","position":"위원","mobile":"010-8925-2299","office":"","email":"","scope":"기술유출 완료점검","note":"소속 확인 필요","source":"주소록.xlsx","srcId":"D-058","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-046","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"김상현","position":"위원","mobile":"010-3088-6710","office":"","email":"","scope":"","note":"","source":"주소록.xlsx","srcId":"D-060","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-048","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"김완수","position":"","mobile":"010-9638-3415","office":"","email":"kimwansu@samsumg.com","scope":"스마트공장 실행팀","note":"","source":"주소록.xlsx","srcId":"D-046","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-053","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"문용권","position":"위원","mobile":"010-6267-3491","office":"","email":"GUNI.MOON@samsung.com2","scope":"스마트공장 실행팀","note":"","source":"주소록.xlsx","srcId":"D-049","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-050","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"박두원","position":"","mobile":"010-2524-2269","office":"","email":"worldpdw@samsung.com","scope":"실행팀장","note":"","source":"주소록.xlsx","srcId":"D-053","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-045","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"옥천호","position":"위원","mobile":"","office":"","email":"","scope":"","note":"연락처 미확보","source":"주소록.xlsx","srcId":"D-061","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-049","group":"사업·지원","category":"스마트공장","company":"삼성전자","person":"허진회","position":"위원","mobile":"010-9134-9303","office":"","email":"junsu65.her@samsung.com","scope":"스마트공장 현장점검","note":"","source":"주소록.xlsx","srcId":"D-045","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-055","group":"사업·지원","category":"스마트공장","company":"삼성SDI","person":"박신철","position":"","mobile":"","office":"","email":"","scope":"","note":"연락처 미확보","source":"주소록.xlsx","srcId":"D-054","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-054","group":"사업·지원","category":"스마트공장","company":"삼성SDI","person":"최재헌","position":"프로","mobile":"010-6564-3541","office":"","email":"jeheun.choi@samsung.com","scope":"스마트공장","note":"","source":"주소록.xlsx","srcId":"D-050","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-056","group":"사업·지원","category":"스마트공장","company":"스마트공장 사업관리시스템","person":"","position":"","mobile":"","office":"044-300-0972, 3","email":"","scope":"사업관리시스템 문의","note":"","source":"주소록.xlsx","srcId":"D-002","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-057","group":"사업·지원","category":"스마트공장","company":"스마트공장 사업관리시스템","person":"","position":"","mobile":"","office":"044-998-0418","email":"","scope":"사업관리시스템 문의","note":"","source":"주소록.xlsx","srcId":"D-003","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-059","group":"사업·지원","category":"스마트공장","company":"스마트공장 운영팀","person":"","position":"","mobile":"","office":"044-300-0984","email":"","scope":"성과지표 관리","note":"","source":"주소록.xlsx","srcId":"D-063","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-058","group":"사업·지원","category":"스마트공장","company":"스마트공장 운영팀","person":"","position":"","mobile":"","office":"044-998-0418","email":"","scope":"시스템 문의","note":"","source":"주소록.xlsx","srcId":"D-062","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-060","group":"사업·지원","category":"스마트공장","company":"중소기업중앙회 스마트산업실","person":"김연수","position":"차장","mobile":"","office":"02-2124-4313","email":"smart2@kbiz.or.kr","scope":"스마트공장 감리담당","note":"","source":"주소록.xlsx","srcId":"D-055","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-061","group":"사업·지원","category":"스마트공장","company":"WELLSTEK","person":"서정훈","position":"상무","mobile":"010-2595-5330","office":"","email":"seogo@wellstek.com","scope":"공정시뮬레이션담당","note":"","source":"주소록.xlsx","srcId":"D-056","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-062","group":"사업·지원","category":"스마트공장","company":"WELLSTEK","person":"정성현","position":"부사장","mobile":"010-8545-3241","office":"","email":"shjeong@wellstek.com","scope":"공정시뮬레이션담당","note":"","source":"주소록.xlsx","srcId":"D-057","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-063","group":"사업·지원","category":"PLM","company":"SWS","person":"고영현","position":"과장","mobile":"010-4343-2677","office":"","email":"YHKO@SWS.CO.KR","scope":"","note":"","source":"주소록.xlsx","srcId":"D-066","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-065","group":"사업·지원","category":"PLM","company":"SWS","person":"유재원","position":"이사","mobile":"010-3270-5190","office":"","email":"","scope":"","note":"","source":"주소록.xlsx","srcId":"D-064","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-064","group":"사업·지원","category":"PLM","company":"SWS","person":"정웅기","position":"부장","mobile":"010-2647-3948","office":"","email":"JUNGUG@SWS.CO.KR","scope":"","note":"","source":"주소록.xlsx","srcId":"D-065","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-066","group":"사업·지원","category":"AI","company":"데이터메이커","person":"김철우","position":"과장","mobile":"010-4441-0651","office":"","email":"chulwoo.kim@datamaker.io","scope":"영업담당자","note":"","source":"주소록.xlsx","srcId":"D-016","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-068","group":"사업·지원","category":"AI","company":"에이아이더뉴트리진","person":"윤태관","position":"이사","mobile":"010-5113-8675","office":"","email":"tkyoon@aithenutrigene.com","scope":"영업담당자","note":"","source":"주소록.xlsx","srcId":"D-015","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-067","group":"사업·지원","category":"AI","company":"에이아이더뉴트리진","person":"이동훈","position":"전무","mobile":"010-9992-8064","office":"","email":"donghun.lee@aithe.io","scope":"","note":"","source":"주소록.xlsx","srcId":"D-075","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-069","group":"사업·지원","category":"AI","company":"코오롱베니트","person":"박기용","position":"책임","mobile":"010-9210-2019","office":"","email":"kiyong_park@kolon.com","scope":"","note":"","source":"주소록.xlsx","srcId":"D-072","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-070","group":"사업·지원","category":"AI","company":"AI 컨설팅업체","person":"","position":"","mobile":"010-3670-5099","office":"","email":"","scope":"","note":"업체명·담당자 미확인","source":"주소록.xlsx","srcId":"D-014","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-071","group":"사업·지원","category":"AI","company":"KSTEC","person":"이동균","position":"","mobile":"010-4895-5065","office":"","email":"","scope":"","note":"http://www.kstec.co.kr","source":"주소록.xlsx","srcId":"D-070","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-072","group":"사업·지원","category":"AI","company":"KSTEC","person":"조한민","position":"팀장","mobile":"010-4289-5430","office":"","email":"","scope":"영업담당자","note":"http://www.kstec.co.kr","source":"주소록.xlsx","srcId":"D-017","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-073","group":"사업·지원","category":"컨설팅","company":"S&OP 컨설팅","person":"허창대","position":"전문위원","mobile":"010-5340-5989","office":"","email":"glofac77@daum.net","scope":"S&OP 컨설팅","note":"보조 메일 cdhuh@nemoicg.com","source":"주소록.xlsx","srcId":"D-012","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-075","group":"사업·지원","category":"회계·감사","company":"EY한영","person":"김수연","position":"전무","mobile":"010-9273-3957","office":"","email":"Sooyeon.Kim@kr.ey.com","scope":"AI","note":"","source":"주소록.xlsx","srcId":"D-074","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-074","group":"사업·지원","category":"회계·감사","company":"EY한영","person":"신정수","position":"회계사","mobile":"010-9965-7506","office":"","email":"Jeongsoo.Shin@kr.ey.com","scope":"컨설팅","note":"","source":"주소록.xlsx","srcId":"D-073","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-076","group":"사업·지원","category":"회계·감사","company":"EY한영","person":"전혜림","position":"회계사","mobile":"010-3194-0795","office":"","email":"hye-rim.jin@kr.ey.com","scope":"감사","note":"","source":"주소록.xlsx","srcId":"D-013","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-077","group":"사업·지원","category":"회계·감사","company":"EY한영","person":"정용수","position":"회계사","mobile":"010-9174-8223","office":"","email":"Yong-Soo.Jung@kr.ey.com","scope":"","note":"","source":"주소록.xlsx","srcId":"D-071","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-078","group":"사업·지원","category":"관공서·지원기관","company":"경기테크노파크","person":"","position":"","mobile":"","office":"031-500-3643","email":"","scope":"","note":"","source":"주소록.xlsx","srcId":"D-059","lastContact":"","registeredAt":"2026-08-04","status":"활성"},
+    {"id":"C-079","group":"사업·지원","category":"관공서·지원기관","company":"중소기업중앙회","person":"","position":"","mobile":"","office":"02-2124-4314","email":"","scope":"","note":"","source":"주소록.xlsx","srcId":"D-001","lastContact":"","registeredAt":"2026-08-04","status":"활성"}
+  ]
+};
+/* === CONTACTS_DATA:END === */
+
+/* === CREDENTIALS_ENC:START (Protect-Credentials.ps1 이 자동 생성 — 직접 편집 금지) === */
+const VAULT = {
+  "v": 1,
+  "alg": "AES-256-GCM",
+  "kdf": "PBKDF2-SHA256",
+  "iterations": 250000,
+  "salt": "v7eH5xDHGZwBW/w++O5kTw==",
+  "iv": "j20EjQPpVU4yHblx",
+  "data": "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",
+  "count": 53,
+  "encryptedAt": "2026-08-26 10:42"
+};
+/* === CREDENTIALS_ENC:END === */
+
+/* === SCHEDULE_DATA:START (Sync-Schedule.ps1 이 자동 생성 — 직접 편집 금지) === */
+const SCHEDULE = {
+  "updatedAt": "2026-08-18",
+  "revision": 8,
+  "certKinds": [
+    "도메인",
+    "SSL 인증서",
+    "공동인증서",
+    "라이선스",
+    "유지보수 계약"
+  ],
+  "routineCats": [
+    "정산·회계",
+    "임대·시설",
+    "IT·인프라",
+    "보안·점검",
+    "계약·갱신",
+    "보고·제출"
+  ],
+  "certs": [
+    {
+      "id": "K-004",
+      "kind": "도메인",
+      "name": "jeilmns.co.kr",
+      "target": "회사 홈페이지 도메인",
+      "services": "홈페이지 www.jeilmns.co.kr (223.130.152.237 · 네이버클라우드)",
+      "issuer": "아이네임즈",
+      "start": "2021-07-19",
+      "expiry": "2027-07-19",
+      "contractEnd": "",
+      "cycle": "",
+      "cost": "",
+      "owner": "총무팀",
+      "account": "S-036",
+      "contactId": "",
+      "note": "아이네임즈 도메인 관리 기준 · 등록 2021-07-19 · 부가서비스 사용 중(목록에 아이콘 표시 — 항목 확인 필요) · SSL 인증서는 K-002 별건",
+      "state": "운영"
+    },
+    {
+      "id": "K-005",
+      "kind": "도메인",
+      "name": "jeilmns.com",
+      "target": "보유 도메인 (.com)",
+      "services": "",
+      "issuer": "아이네임즈",
+      "start": "2021-07-19",
+      "expiry": "2027-07-19",
+      "contractEnd": "",
+      "cycle": "",
+      "cost": "",
+      "owner": "총무팀",
+      "account": "S-036",
+      "contactId": "",
+      "note": "아이네임즈 도메인 관리 기준 · 등록 2021-07-19 · 부가서비스 없음 · 실제 사용처(연결 여부) 확인 필요",
+      "state": "운영"
+    },
+    {
+      "id": "K-003",
+      "kind": "도메인",
+      "name": "jeilm.co.kr",
+      "target": "사내 시스템 도메인",
+      "services": "ERP(erp) · 그룹웨어(gw) · 문서중앙화 · NAS(nas) · VPN(vpn)",
+      "issuer": "아이네임즈",
+      "start": "1999-07-30",
+      "expiry": "2027-07-30",
+      "contractEnd": "",
+      "cycle": "",
+      "cost": "",
+      "owner": "총무팀",
+      "account": "S-036",
+      "contactId": "",
+      "note": "아이네임즈 도메인 관리 기준 · 최초 등록 1999-07-30 · 부가서비스 사용 중(목록에 아이콘 표시 — 항목 확인 필요) · SSL 인증서는 K-001 별건",
+      "state": "운영"
+    },
+    {
+      "id": "K-002",
+      "kind": "SSL 인증서",
+      "name": "*.jeilmns.co.kr",
+      "target": "basic Wildcard — 회사 홈페이지",
+      "services": "홈페이지 www.jeilmns.co.kr (223.130.152.237 · 네이버클라우드) — 갱신 시 홈페이지 서버에 설치",
+      "issuer": "아이네임즈",
+      "start": "2026-01-12",
+      "expiry": "2027-02-11",
+      "contractEnd": "",
+      "cycle": "1년",
+      "cost": "",
+      "owner": "총무팀",
+      "account": "S-036",
+      "contactId": "",
+      "note": "아이네임즈 인증서관리 목록 기준 만기 2027-02-11 · 회차별 발급 이력은 [발급확인] 으로 조회 · 갱신 시 홈페이지 서버(223.130.152.237 · 네이버클라우드)에 설치 · 아이네임즈 1588-5829",
+      "state": "운영"
+    },
+    {
+      "id": "K-001",
+      "kind": "SSL 인증서",
+      "name": "*.jeilm.co.kr",
+      "target": "basic Wildcard — 사내 서비스 공통 인증서",
+      "services": "ERP(erp.jeilm.co.kr) · 그룹웨어(gw.jeilm.co.kr) · 문서중앙화 — 갱신 시 서비스마다 개별 설치 필요",
+      "issuer": "아이네임즈",
+      "start": "2026-08-04",
+      "expiry": "2027-09-04",
+      "contractEnd": "",
+      "cycle": "1년",
+      "cost": "",
+      "owner": "총무팀",
+      "account": "S-036",
+      "contactId": "",
+      "note": "아이네임즈 인증서관리 목록 기준 만기 2027-09-04. 발급본은 회차로 나뉘며 1회차는 2026-08-04~2027-02-17(상세보기) — 회차 만기 전 재발급 후 ERP·그룹웨어·문서중앙화에 각각 설치. SSL은 만기 33일 전부터 갱신신청 가능 · 아이네임즈 1588-5829",
+      "state": "운영"
+    }
+  ],
+  "routines": [
+    {
+      "id": "R-009",
+      "title": "쿠콘 국세청 스크래핑 비용",
+      "category": "정산·회계",
+      "freq": "매월",
+      "anchor": "8",
+      "next": "",
+      "owner": "총무",
+      "target": "(주)쿠콘",
+      "howto": "전월분 이용료 ERP 결의 상신",
+      "note": "문서명 「(주)쿠콘 YY년 M월분 국세청 스크래핑외」 · ERP 결의서만 상신(기안서 없음) · 26년6월분 07-08 / 7월분 08-11",
+      "state": "운영"
+    },
+    {
+      "id": "R-011",
+      "title": "서울사무소 식대비 정산",
+      "category": "정산·회계",
+      "freq": "매월",
+      "anchor": "6",
+      "next": "",
+      "owner": "총무",
+      "target": "애플이엔씨 (C-008) → 오늘의밥상 영창점 (C-007)",
+      "howto": "전월분 식수 집계 → 식대비 정산 기안 → 급식대 지급요청서 ERP 결의",
+      "note": "기안 「YY년 M월 서울사무소 식대비 정산 件」 + 결의 「YY년M월_서울사무소 급식대 지급요청서」 · 26년6월분 07-06 / 7~8월분(7/1~8/7) 08-11 · 2026-08-10부터 오늘의밥상 영창점 계약이라 거래처 전환 확인 필요",
+      "state": "운영"
+    },
+    {
+      "id": "R-010",
+      "title": "굿타워 정기주차비 선납",
+      "category": "임대·시설",
+      "freq": "매월",
+      "anchor": "28",
+      "next": "",
+      "owner": "총무",
+      "target": "굿타워 — 서진원 소장 (C-005)",
+      "howto": "익월분 선납 기안 → ERP 결의 상신",
+      "note": "기안 「YY년 M월 굿타워 정기주차비 선납 기안의 건」 + 결의 「YY년 M월 굿타워 정기주차 비용 지급의 건」 · 26년 8월분 07-28 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-012",
+      "title": "굿타워 임대료·관리비",
+      "category": "임대·시설",
+      "freq": "매월",
+      "anchor": "15",
+      "next": "",
+      "owner": "총무",
+      "target": "굿프린팅 경리부 02-2260-9047 (C-002)",
+      "howto": "청구 확인 → 변동성 정기비용 기안 → ERP 결의 상신",
+      "note": "기안 「YY년 M월 변동성 정기비용 기안의견 (굿타워)」 + 결의 「YY년 M월 굿타워 임대료 및 관리비 지급의건」 · 26년 7월분 07-15 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-013",
+      "title": "에메랄드빌딩 임대료",
+      "category": "임대·시설",
+      "freq": "매월",
+      "anchor": "22",
+      "next": "",
+      "owner": "총무",
+      "target": "에메랄드빌딩 — 구 서울사무소 2·3층 (C-004)",
+      "howto": "청구 확인 → 변동성 정기비용 기안 → ERP 결의 상신",
+      "note": "기안 「YY년 M월 변동성 정기비용 기안의견 (에메랄드빌딩)」 + 결의 「YY년 M월 에메랄드빌딩 2층, 3층 임대료 등 납부요청」 · 26년 5월분 05-26 / 6월분 06-24 / 7월분 07-22 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-001",
+      "title": "jeilm.co.kr 인증서 갱신",
+      "category": "계약·갱신",
+      "freq": "매년",
+      "anchor": "01-15",
+      "next": "",
+      "owner": "총무",
+      "target": "아이네임즈 cert.inames.co.kr (🔒 S-036) · 인증서 K-001",
+      "howto": "① 아이네임즈 인증서관리에서 회차 재발급 신청 → ② 발급본 다운로드 → ③ ERP(erp.jeilm.co.kr) · 그룹웨어(gw.jeilm.co.kr) · 문서중앙화에 각각 설치 → ④ 각 사이트를 브라우저로 열어 만기일이 바뀌었는지 확인 → ⑤ 🔐 탭 K-001 만료일 갱신",
+      "note": "설치본 만기 2027-02-17 (서비스 계약은 2027-09-04까지) · SSL은 만기 33일 전부터 신청 가능 · 서비스마다 설치가 따로다 · 아이네임즈 1588-5829",
+      "state": "운영"
+    },
+    {
+      "id": "R-002",
+      "title": "jeilmns.co.kr 인증서 갱신",
+      "category": "계약·갱신",
+      "freq": "매년",
+      "anchor": "01-09",
+      "next": "",
+      "owner": "총무",
+      "target": "아이네임즈 cert.inames.co.kr (🔒 S-036) · 인증서 K-002",
+      "howto": "① [발급확인] 으로 현재 설치본 만기 확인 → ② 재발급 신청·다운로드 → ③ 홈페이지 서버(223.130.152.237 · 네이버클라우드)에 설치 → ④ www.jeilmns.co.kr 접속해 만기일 확인 → ⑤ 🔐 탭 K-002 만료일 갱신",
+      "note": "설치본 만기 2027-02-11 · 목록에 상세보기가 없어 회차 이력은 [발급확인] 으로 조회 · 아이네임즈 1588-5829",
+      "state": "운영"
+    },
+    {
+      "id": "R-003",
+      "title": "ERP권한 변경내역 보고",
+      "category": "보고·제출",
+      "freq": "매월",
+      "anchor": "1",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전월분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 M월 ERP권한 변경내역 내역보고서」 · 익월 첫 영업일 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-004",
+      "title": "DML자료직접변경 내역보고",
+      "category": "보고·제출",
+      "freq": "매월",
+      "anchor": "1",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전월분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 M월 DML자료직접변경 내역보고서」 · 익월 첫 영업일 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-005",
+      "title": "OS·DB·Superuser 계정 권한 보고",
+      "category": "보고·제출",
+      "freq": "분기",
+      "anchor": "01-01",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전분기분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 N분기 OS,DB, Superuser 계정 권한 보고의 건」 · 분기 익월 첫 영업일 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-006",
+      "title": "DLL 변경내역 보고",
+      "category": "보고·제출",
+      "freq": "분기",
+      "anchor": "01-01",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전분기분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 N분기 DLL 변경내역 보고서」 · 분기 익월 첫 영업일 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-007",
+      "title": "백업수행 모니터링 보고",
+      "category": "보고·제출",
+      "freq": "분기",
+      "anchor": "01-01",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전분기분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 N분기 백업수행 모니터링 보고의 건」 · 분기 익월 첫 영업일 상신",
+      "state": "운영"
+    },
+    {
+      "id": "R-008",
+      "title": "전산실 출입모니터링 보고",
+      "category": "보고·제출",
+      "freq": "분기",
+      "anchor": "01-01",
+      "next": "",
+      "owner": "총무",
+      "target": "그룹웨어 전자결재 (기안서)",
+      "howto": "전분기분 내역 정리 → 기안 상신",
+      "note": "문서명 「YYYY년 N분기 전산실 출입모니터링 보고의 건」 · 분기 익월 첫 영업일 상신",
+      "state": "운영"
+    }
+  ],
+  "logs": [
+    {
+      "id": "L-011",
+      "date": "2026-05-04",
+      "title": "2026년 4월 DML자료직접변경 내역보고서",
+      "result": "완료",
+      "refId": "R-004",
+      "due": "2026-05-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-020",
+      "date": "2026-05-26",
+      "title": "26년 5월 변동성 정기비용 기안의견 (에메랄드빌딩)",
+      "result": "완료",
+      "refId": "R-013",
+      "due": "2026-05-22",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-009",
+      "date": "2026-06-01",
+      "title": "2026년 5월 ERP권한 변경내역 내역보고서",
+      "result": "완료",
+      "refId": "R-003",
+      "due": "2026-06-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-010",
+      "date": "2026-06-01",
+      "title": "2026년 5월 DML자료직접변경 내역보고서",
+      "result": "완료",
+      "refId": "R-004",
+      "due": "2026-06-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-019",
+      "date": "2026-06-24",
+      "title": "26년 6월 변동성 정기비용 기안의견 (에메랄드빌딩)",
+      "result": "완료",
+      "refId": "R-013",
+      "due": "2026-06-22",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-003",
+      "date": "2026-07-02",
+      "title": "2026년 6월 ERP권한 변경내역 내역보고서",
+      "result": "완료",
+      "refId": "R-003",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-004",
+      "date": "2026-07-02",
+      "title": "2026년 6월 DML자료직접변경 내역보고서",
+      "result": "완료",
+      "refId": "R-004",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-005",
+      "date": "2026-07-02",
+      "title": "2026년 2분기 OS,DB, Superuser 계정 권한 보고의 건",
+      "result": "완료",
+      "refId": "R-005",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-006",
+      "date": "2026-07-02",
+      "title": "2026년 2분기 DLL 변경내역 보고서",
+      "result": "완료",
+      "refId": "R-006",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-007",
+      "date": "2026-07-02",
+      "title": "2026년 2분기 백업수행 모니터링 보고의 건",
+      "result": "완료",
+      "refId": "R-007",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-008",
+      "date": "2026-07-02",
+      "title": "2026년 2분기 전산실 출입모니터링 보고의 건",
+      "result": "완료",
+      "refId": "R-008",
+      "due": "2026-07-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-016",
+      "date": "2026-07-06",
+      "title": "26년 6월 서울사무소 식대비 정산 + 급식대 지급요청서 [TG202606300086]",
+      "result": "완료",
+      "refId": "R-011",
+      "due": "2026-07-06",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-013",
+      "date": "2026-07-08",
+      "title": "(주)쿠콘 26년6월분 국세청 스크래핑외 [TG202607050001]",
+      "result": "완료",
+      "refId": "R-009",
+      "due": "2026-07-08",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-017",
+      "date": "2026-07-15",
+      "title": "26년 7월 굿타워 임대료 및 관리비 지급의건 [TG202607140008]",
+      "result": "완료",
+      "refId": "R-012",
+      "due": "2026-07-15",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-018",
+      "date": "2026-07-22",
+      "title": "26년 7월 에메랄드빌딩 2층, 3층 임대료 등 납부요청 [TG202607220007]",
+      "result": "완료",
+      "refId": "R-013",
+      "due": "2026-07-22",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-014",
+      "date": "2026-07-28",
+      "title": "26년 8월 굿타워 정기주차비 선납 기안 + 비용 지급 [TG202607280005]",
+      "result": "완료",
+      "refId": "R-010",
+      "due": "2026-07-28",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-001",
+      "date": "2026-08-03",
+      "title": "2026년 7월 ERP권한 변경내역 내역보고서",
+      "result": "완료",
+      "refId": "R-003",
+      "due": "2026-08-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-002",
+      "date": "2026-08-03",
+      "title": "2026년 7월 DML자료직접변경 내역보고서",
+      "result": "완료",
+      "refId": "R-004",
+      "due": "2026-08-01",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-012",
+      "date": "2026-08-11",
+      "title": "(주)쿠콘 26년7월분 국세청 스크래핑외 [TG202608110005]",
+      "result": "완료",
+      "refId": "R-009",
+      "due": "2026-08-08",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    },
+    {
+      "id": "L-015",
+      "date": "2026-08-11",
+      "title": "26년 7/1~8/7 서울사무소 식대비 정산 + 급식대 지급요청서 [TG202607310121]",
+      "result": "완료",
+      "refId": "R-011",
+      "due": "2026-08-06",
+      "note": "그룹웨어 본인작성문서함 확인분"
+    }
+  ]
+};
+/* === SCHEDULE_DATA:END === */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const dash = '<span class="sub">-</span>';
+
+/* ----------------------------------------------------------------------------
+   연락처 원장 사본 + 브라우저 임시본
+   화면에서 고친 연락처는 이 브라우저에만 임시 저장되며,
+   [contacts.json 내려받기] -> 정보관리.cmd [7] 연락처 저장 을 거쳐야 원장에 들어간다.
+   ---------------------------------------------------------------------------- */
+const CONT_LS  = 'jeilm.chongmu.contacts.v1';
+const GROUPS   = DATA.groups || [];
+const CATS_ALL = DATA.categories || [];
+let contDraft = '';
+let CONTACTS = (() => {
+  try{
+    const raw = localStorage.getItem(CONT_LS);
+    if(raw){
+      const d = JSON.parse(raw);
+      if(d && d.base === DATA.revision && Array.isArray(d.data)){ contDraft = d.savedAt || '저장됨'; return d.data; }
+      localStorage.removeItem(CONT_LS);   /* 원장이 더 새 것이면 임시본은 버린다 */
+    }
+  }catch(_){}
+  return JSON.parse(JSON.stringify(DATA.contacts || []));
+})();
+
+function saveContacts(){
+  try{
+    const at = new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    localStorage.setItem(CONT_LS, JSON.stringify({base:DATA.revision, savedAt:at, data:CONTACTS}));
+    contDraft = at;
+  }catch(_){
+    contDraft = '(브라우저 저장 실패)';
+    alert('브라우저에 임시 저장하지 못했습니다. 창을 닫기 전에 [contacts.json 내려받기] 를 눌러 두세요.');
+  }
+}
+function dropContacts(){
+  try{ localStorage.removeItem(CONT_LS); }catch(_){}
+  contDraft = '';
+  CONTACTS = JSON.parse(JSON.stringify(DATA.contacts || []));
+  resetPanel(); drawTabs(); draw();
+}
+function downloadContacts(){
+  const out = {schemaVersion:'2.0', updatedAt:TODAY, revision:DATA.revision,
+               groups:GROUPS, categories:CATS_ALL, contacts:CONTACTS};
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
+  a.download = 'contacts.json'; a.click();
+}
+function contBar(){ return draftBar('c', contDraft, DATA.updatedAt, 'contacts.json', '[7] 연락처 저장'); }
+function bindContBar(){
+  const dl = $('#cdl'); if(dl) dl.onclick = downloadContacts;
+  const dp = $('#cdrop'); if(dp) dp.onclick = () => {
+    if(confirm('브라우저에 임시 저장된 연락처 변경을 모두 버리고 원장(contacts.json) 상태로 되돌립니다.')) dropContacts();
+  };
+}
+const TABS = [
+  { key:'__all', label:'전체', rows:() => CONTACTS },
+  ...GROUPS.map(g => ({ key:g, label:g, rows:() => CONTACTS.filter(c => c.group===g) })),
+  { key:'__cert',    label:'🔐 인증서·도메인',   sched:'cert',    rows:() => SCHED.certs },
+  { key:'__routine', label:'📅 정기업무·캘린더', sched:'routine', rows:() => SCHED.routines },
+  { key:'__vault', label:'🔒 시스템 접속정보', vault:true }
+];
+
+const COLS = [
+  {k:'category', t:'분류',      ic:'sel',  r:c=>`<span class="cat">${esc(c.category)}</span>`},
+  {k:'company',  t:'업체·기관', ic:'text', r:c=>c.company?`<span class="co">${esc(c.company)}</span>`:dash},
+  {k:'person',   t:'담당자',    ic:'text', r:c=>(c.person?`<span class="nw">${esc(c.person)}</span>`:dash)+(c.position?`<div class="pos">${esc(c.position)}</div>`:'')},
+  {k:'mobile',   t:'연락처',    r:c=>{
+      const a=[];
+      if(c.mobile) a.push(tel(c.mobile,''));
+      if(c.office) a.push(tel(c.office,' of'));
+      return a.length?a.join('<br>'):dash; }},
+  {k:'email',    t:'이메일',    ic:'text', r:c=>c.email?`<a class="mail" href="mailto:${esc(c.email)}">${esc(c.email)}</a>`:dash},
+  {k:'scope',    t:'담당 업무', ic:'text', r:c=>`<span class="sub">${esc(c.scope)}</span>`},
+  {k:'note',     t:'비고',      ic:'text', r:c=>`<span class="sub">${esc(c.note)}</span>`},
+  {k:'_a',       t:'',          r:c=>rowBtns('contact', c.id)}
+];
+/* 접속정보 분류 — 표시 순서 (목록에 없는 값은 뒤에 자동으로 붙는다) */
+const VAULT_CATS = ['문서중앙화','서버·인프라','방화벽·네트워크','업무시스템','홈페이지·도메인','공공·지원사업','메일·협업','기타'];
+const COLS_VAULT = [
+  {k:'category', t:'분류',     ic:'sel',  r:c=>`<span class="cat">${esc(c.category||'기타')}</span>`},
+  {k:'system',   t:'시스템',   ic:'text', r:c=>c.system?`<span class="co">${esc(c.system)}</span>`:dash},
+  {k:'target',   t:'접속대상', ic:'text', r:c=>link(c.target)},
+  {k:'account',  t:'아이디',   ic:'text', r:c=>c.account?`<span class="pw">${esc(c.account)}</span>${copyBtn(c.account)}`:dash},
+  /* 비밀번호 칸은 클릭 = 가림·표시 토글이라 바로수정 대상에서 뺀다 — [수정] 창에서 고친다 */
+  {k:'password', t:'비밀번호', r:c=>c.password?`<span class="pw hide" data-pw>${esc(c.password)}</span>${copyBtn(c.password)}`:dash},
+  {k:'info',     t:'비고',     ic:'text', r:c=>`<span class="sub">${esc(c.info)}</span>`},
+  {k:'_a',       t:'',         r:c=>rowBtns('cred', c.id)}
+];
+
+function tel(n,cls){ return `<a class="tel${cls}" href="tel:${String(n).replace(/[^0-9+]/g,'')}">${esc(n)}</a>` }
+function link(t){
+  if(!t) return dash;
+  return esc(t).replace(/(https?:\/\/[^\s|]+)/gi, u => `<a class="mail" href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
+function copyBtn(v){ return `<button class="mini" data-copy="${esc(v)}">복사</button>` }
+
+/* ---------- 상태 ---------- */
+let active = TABS[0].key, cat = '전체', q = '', sortK = null, sortAsc = true;
+let vaultData = null, vaultKey = null, sessionTimer = null, sessionEnd = null;
+let credDraft = '';                /* 접속정보 임시본 저장시각 (비어 있으면 변경 없음) */
+const CRED_LS = 'jeilm.chongmu.creds.v1';
+const SESSION_MS = 3*60*60*1000;   /* 잠금 해제 후 로그인 지속시간 (기본 3시간) */
+const hhmm = t => new Date(t).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+
+$('#upd').textContent = DATA.updatedAt || '-';
+
+function drawTabs(){
+  $('#tabs').innerHTML = TABS.map(t => {
+    const n = t.vault ? (VAULT ? VAULT.count : 0) : t.rows().length;
+    return `<div class="tab${t.key===active?' on':''}${t.vault?' vault':''}" data-t="${esc(t.key)}">
+      ${esc(t.label)}<span class="n">${n}</span></div>`;
+  }).join('');
+}
+$('#tabs').onclick = e => {
+  const t = e.target.closest('.tab'); if(!t) return;
+  active = t.dataset.t; cat='전체'; q=''; sortK=null; resetPanel(); drawTabs(); draw();
+};
+
+function search(rows){
+  const s = q.trim().toLowerCase();
+  let r = s ? rows.filter(o => Object.values(o).join(' ').toLowerCase().includes(s)) : [...rows];
+  if(sortK) r.sort((a,b)=>String(a[sortK]??'').localeCompare(String(b[sortK]??''),'ko')*(sortAsc?1:-1));
+  return r;
+}
+function bindTable(){
+  document.querySelectorAll('th[data-k]').forEach(th => th.onclick = () => {
+    sortAsc = (sortK===th.dataset.k) ? !sortAsc : true; sortK = th.dataset.k; draw();
+  });
+}
+/* 검색창은 패널 골격을 만들 때 한 번만 바인딩한다.
+   입력할 때마다 input 요소를 다시 만들면 한글 IME 조합이 끊겨
+   "위드" 가 "ㅇㅜ" 처럼 자모로 깨져 들어간다. (2026-08-13 수정) */
+function bindSearch(){
+  const qi = $('#q'); if(!qi) return;
+  qi.value = q;
+  qi.oninput = () => { q = qi.value; draw(); };
+  if(q) qi.focus();
+}
+
+/* ---------- 렌더 ----------
+   panelMode: 현재 패널 골격 종류. 골격(검색창 포함)은 종류가 바뀔 때만 새로 만들고,
+   검색·정렬·분류 전환은 #result 안쪽만 다시 그린다. */
+let panelMode = '';
+let pwShown = false;
+function resetPanel(){ panelMode = ''; }
+
+function draw(){
+  const t = TABS.find(x => x.key===active);
+  if(t.vault) return drawVault();
+  if(t.sched) return t.sched==='cert' ? drawCert() : drawRoutine();
+
+  const base = t.rows();
+  const cats = [];
+  base.forEach(c => { if(!cats.includes(c.category)) cats.push(c.category); });
+  if(cat!=='전체' && !cats.includes(cat)) cat = '전체';
+  const scoped = cat==='전체' ? base : base.filter(c => c.category===cat);
+  const rows = search(scoped);
+
+  const chips = `<div class="chips">
+    <span class="chip${cat==='전체'?' on':''}" data-c="전체">전체<span class="n">${base.length}</span></span>
+    ${cats.map(c => `<span class="chip${cat===c?' on':''}" data-c="${esc(c)}">${esc(c)}<span class="n">${base.filter(x=>x.category===c).length}</span></span>`).join('')}
+  </div>`;
+
+  // 분류별 구획 표시 (정렬 중이거나 소분류를 고른 경우에는 단순 목록)
+  const grouped = !sortK && cat==='전체';
+  const use = COLS.filter(c => c.k!=='category' || !grouped);
+  let body;
+  if(grouped){
+    const order = [];
+    rows.forEach(r => { if(!order.includes(r.category)) order.push(r.category); });
+    body = order.map(c => {
+      const rs = rows.filter(x => x.category===c);
+      return `<tr class="sec"><td colspan="${use.length}">${esc(c)}<span class="n">${rs.length}건</span></td></tr>`
+           + rs.map(r => `<tr>${use.map(col => tdOf(col, r, 'contact')).join('')}</tr>`).join('');
+    }).join('');
+  } else {
+    body = rows.map(r => `<tr>${use.map(col => tdOf(col, r, 'contact')).join('')}</tr>`).join('');
+  }
+
+  if(panelMode !== 'list'){
+    panelMode = 'list';
+    $('#panel').innerHTML = `
+      ${contBar()}
+      <div class="bar">
+        <input type="search" id="q" value="${esc(q)}" placeholder="업체 · 담당자 · 업무 · 번호 · 메일 검색">
+        <span class="meta" id="meta"></span>
+        <span class="grow"></span>
+        <button class="p" id="addCt">+ 연락처 추가</button>
+        <button id="bulkCt">📋 일괄 붙여넣기</button>
+        <button id="csv">CSV 내보내기</button>
+        <button onclick="window.print()">인쇄</button>
+      </div>
+      <div id="result"></div>`;
+    bindSearch(); bindContBar();
+    $('#addCt').onclick = () => openForm('contact', null, {
+      group:    GROUPS.includes(active) ? active : GROUPS[0],
+      category: (cat!=='전체' && CATS_ALL.includes(cat)) ? cat : '',
+      status:'활성', source:'직접입력' });
+    $('#bulkCt').onclick = () => openBulk('contact');
+  }
+  $('#result').innerHTML = `
+    ${chips}
+    <div class="tablebox">
+      <table><thead><tr>${use.map(c=>`<th data-k="${c.k}">${c.t}</th>`).join('')}</tr></thead>
+      <tbody>${body}</tbody></table>
+      ${rows.length?'':'<div class="empty">검색 결과가 없습니다.</div>'}
+    </div>`;
+  $('#meta').textContent = `${rows.length}건`;
+
+  bindTable();
+  document.querySelectorAll('.chip').forEach(ch => ch.onclick = () => { cat = ch.dataset.c; draw(); });
+  $('#csv').onclick = () => exportCsv(rows, (active==='__all'?'전체':active) + (cat==='전체'?'':'_'+cat));
+}
+
+function exportCsv(rows, name){
+  const H = ['대분류','분류','업체·기관','담당자','직위','휴대전화','대표번호','이메일','담당 업무','비고','최근접촉','상태'];
+  const K = ['group','category','company','person','position','mobile','office','email','scope','note','lastContact','status'];
+  const qt = v => `"${String(v??'').replace(/"/g,'""')}"`;
+  const csv = "﻿" + [H.map(qt).join(','), ...rows.map(r=>K.map(k=>qt(r[k])).join(','))].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = `총무연락처_${name}_${DATA.updatedAt}.csv`.replace(/[\\/:*?"<>|]/g,'_'); a.click();
+}
+
+/* ---------- 금고 ---------- */
+function drawVault(){
+  if(!VAULT){
+    panelMode = 'none';
+    $('#panel').innerHTML = `<div class="gate"><h2>접속정보가 아직 암호화되지 않았습니다</h2>
+      <p>폴더 안의 <code>정보관리.cmd</code> 를 실행해 접속정보를 등록하세요 ([1] 접속정보 추가).</p></div>`;
+    return;
+  }
+  if(!vaultData){
+    panelMode = 'gate';
+    $('#panel').innerHTML = `<div class="gate">
+      <h2>🔒 시스템 접속정보</h2>
+      <p>지정한 비밀번호를 입력하면 ${VAULT.count}건의 계정 정보가 열립니다.<br>
+         (마지막 암호화 ${esc(VAULT.encryptedAt||'-')})</p>
+      <div class="row">
+        <input type="password" id="pw" placeholder="비밀번호" autocomplete="off">
+        <button class="p" id="go">잠금 해제</button>
+      </div>
+      <div class="err" id="err"></div></div>`;
+    $('#pw').focus();
+    $('#go').onclick = tryUnlock;
+    $('#pw').onkeydown = e => { if(e.key==='Enter') tryUnlock(); };
+    return;
+  }
+  const all = vaultData.credentials.map(c => ({...c, category: c.category || '기타'}));
+  // 분류 목록 — 정해 둔 순서 먼저, 그 밖의 값은 뒤에 붙인다
+  const cats = [...VAULT_CATS.filter(k => all.some(c => c.category===k)),
+                ...[...new Set(all.map(c => c.category))].filter(k => !VAULT_CATS.includes(k))];
+  if(cat!=='전체' && !cats.includes(cat)) cat = '전체';
+  const scoped = cat==='전체' ? all : all.filter(c => c.category===cat);
+  const rows = search(scoped);
+  if(panelMode !== 'vault'){
+    panelMode = 'vault'; pwShown = false;
+    $('#panel').innerHTML = `
+      <div class="lockbar">
+        <b>잠금 해제됨</b> · ${vaultData.credentials.length}건 · 로그인 유지 3시간<span id="untilTxt">${sessionEnd?` (${hhmm(sessionEnd)} 자동 잠금)`:''}</span>
+        <button class="mini" id="toggleAll">비밀번호 모두 표시</button>
+        <button class="mini" id="expPlain">평문 JSON 내보내기</button>
+        <button class="mini lk" id="lock">지금 잠그기</button>
+      </div>
+      <div class="warnbox">화면·인쇄물·내보낸 파일에 실제 비밀번호가 노출됩니다. 자리를 비울 때는 반드시 잠그세요.</div>
+      ${credBar()}
+      <div class="bar">
+        <input type="search" id="q" value="${esc(q)}" placeholder="시스템 · 주소 · 아이디 검색">
+        <span class="meta" id="meta"></span>
+        <span class="grow"></span>
+        <button class="p" id="addCr">+ 접속정보 추가</button>
+        <button id="bulkCr">📋 일괄 붙여넣기</button>
+      </div>
+      <div id="result"></div>`;
+    bindSearch(); bindCredBar();
+    $('#addCr').onclick = () => openForm('cred', null,
+      {category:(cat!=='전체' && VAULT_CATS.includes(cat)) ? cat : '기타'});
+    $('#bulkCr').onclick = () => openBulk('cred');
+    $('#toggleAll').onclick = e => {
+      pwShown = !pwShown; applyPwVisibility();
+      e.target.textContent = pwShown ? '비밀번호 모두 숨기기' : '비밀번호 모두 표시';
+    };
+    $('#lock').onclick = lock;
+    $('#expPlain').onclick = () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(vaultData,null,2)],{type:'application/json'}));
+      a.download = 'credentials.plain.json'; a.click();
+    };
+  }
+  const chips = `<div class="chips">
+    <span class="chip${cat==='전체'?' on':''}" data-c="전체">전체<span class="n">${all.length}</span></span>
+    ${cats.map(c => `<span class="chip${cat===c?' on':''}" data-c="${esc(c)}">${esc(c)}<span class="n">${all.filter(x=>x.category===c).length}</span></span>`).join('')}
+  </div>`;
+
+  // 분류를 고르지 않고 정렬도 안 한 상태면 분류별 구획으로 묶어 보여준다
+  const grouped = !sortK && cat==='전체';
+  const use = COLS_VAULT.filter(c => c.k!=='category' || !grouped);
+  let body;
+  if(grouped){
+    body = cats.map(c => {
+      const rs = rows.filter(x => x.category===c);
+      if(!rs.length) return '';
+      return `<tr class="sec"><td colspan="${use.length}">${esc(c)}<span class="n">${rs.length}건</span></td></tr>`
+           + rs.map(r => `<tr>${use.map(col => tdOf(col, r, 'cred')).join('')}</tr>`).join('');
+    }).join('');
+  } else {
+    body = rows.map(r => `<tr>${use.map(col => tdOf(col, r, 'cred')).join('')}</tr>`).join('');
+  }
+
+  $('#result').innerHTML = `
+    ${chips}
+    <div class="tablebox">
+      <table><thead><tr>${use.map(c=>`<th data-k="${c.k}">${c.t}</th>`).join('')}</tr></thead>
+      <tbody>${body}</tbody></table>
+      ${rows.length?'':'<div class="empty">검색 결과가 없습니다.</div>'}
+    </div>`;
+  $('#meta').textContent = `${rows.length}건`;
+  bindTable();
+  document.querySelectorAll('.chip').forEach(ch => ch.onclick = () => { cat = ch.dataset.c; draw(); });
+  applyPwVisibility();
+}
+/* 비밀번호 표시 상태는 결과를 다시 그려도 유지한다 */
+function applyPwVisibility(){
+  document.querySelectorAll('[data-pw]').forEach(x => {
+    x.classList.toggle('hide', !pwShown);
+    x.onclick = () => x.classList.toggle('hide');
+  });
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-copy]');
+  if(!b) return;
+  navigator.clipboard.writeText(b.dataset.copy).then(() => {
+    const o = b.textContent; b.textContent = '복사됨';
+    setTimeout(() => b.textContent = o, 1200);
+  });
+});
+
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const b64e = buf => { const u = new Uint8Array(buf); let s = '';
+  for(let i=0; i<u.length; i++) s += String.fromCharCode(u[i]);
+  return btoa(s); };
+
+async function tryUnlock(){
+  const pw = $('#pw').value, err = $('#err'), go = $('#go');
+  if(!pw) return;
+  if(!crypto?.subtle){ err.textContent = '이 브라우저에서는 복호화를 사용할 수 없습니다. Chrome/Edge로 열어주세요.'; return; }
+  go.disabled = true; err.textContent = '해제 중...';
+  try{
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    /* 화면에서 고친 내용을 같은 비밀번호로 다시 암호화해야 하므로 encrypt 권한도 함께 받는다 */
+    const key = await crypto.subtle.deriveKey(
+      {name:'PBKDF2', salt:b64(VAULT.salt), iterations:VAULT.iterations, hash:'SHA-256'},
+      km, {name:'AES-GCM', length:256}, false, ['decrypt','encrypt']);
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(VAULT.iv)}, key, b64(VAULT.data));
+    vaultData = JSON.parse(new TextDecoder().decode(pt));
+    vaultKey = key;
+    await restoreCredDraft();          /* 저장하지 않고 잠갔던 변경이 있으면 이어서 연다 */
+    startSession();
+    q=''; sortK=null; resetPanel(); draw();
+  }catch(_){
+    go.disabled = false; err.textContent = '비밀번호가 올바르지 않습니다.';
+    $('#pw').value=''; $('#pw').focus();
+  }
+}
+/* 잠글 때 키까지 버린다 — 임시본은 암호문 상태로 남아 다음 잠금 해제 때 복원된다 */
+function lock(auto){
+  if(credDraft && !auto)
+    alert('저장하지 않은 접속정보 변경이 있습니다.\n암호문 상태로 이 브라우저에 남아 다음 잠금 해제 때 이어서 열리지만,\n원장에 반영하려면 [credentials.enc.json 내려받기] 와 정보관리.cmd [8] 을 실행해야 합니다.');
+  vaultData=null; vaultKey=null; q=''; sortK=null; pwShown=false;
+  clearTimeout(sessionTimer); sessionEnd=null; resetPanel(); draw();
+}
+function startSession(){
+  clearTimeout(sessionTimer);
+  sessionEnd = Date.now() + SESSION_MS;
+  sessionTimer = setTimeout(() => {
+    if(vaultData){
+      const had = !!credDraft;
+      lock(true);
+      alert('로그인 유지시간(3시간)이 지나 접속정보를 다시 잠갔습니다.'
+        + (had ? '\n저장하지 않은 변경은 암호문 상태로 남아 있어 다시 해제하면 그대로 열립니다.' : ''));
+    }
+  }, SESSION_MS);
+}
+
+/* --------------------------------------------------------------------------
+   접속정보 임시본 — 화면에서 고친 내용은 같은 비밀번호로 곧바로 다시 암호화해
+   브라우저에 보관한다(평문은 어디에도 남지 않는다).
+   [credentials.enc.json 내려받기] → 정보관리.cmd [8] 접속정보 저장 을 거쳐야 원장에 들어간다.
+   -------------------------------------------------------------------------- */
+async function encPackage(){
+  if(!vaultKey || !vaultData) return null;
+  const iv  = crypto.getRandomValues(new Uint8Array(12));
+  const out = {...vaultData, updatedAt:TODAY};
+  const ct  = await crypto.subtle.encrypt({name:'AES-GCM', iv}, vaultKey,
+                new TextEncoder().encode(JSON.stringify(out)));
+  return {
+    v:1, alg:'AES-256-GCM', kdf:'PBKDF2-SHA256',
+    iterations:VAULT.iterations, salt:VAULT.salt,   /* 비밀번호가 같으므로 소금·반복수는 그대로 */
+    iv:b64e(iv), data:b64e(ct),
+    count:(vaultData.credentials||[]).length,
+    encryptedAt:new Date().toLocaleString('sv-SE').slice(0,16),
+    basedOn:VAULT.encryptedAt || ''                 /* 어느 원장에서 고친 것인지 — 회수 때 대조 */
+  };
+}
+/* 편집 직후 호출 — 표시는 바로 바꾸고, 암호화·보관은 뒤에서 마무리한다 */
+function touchCreds(){
+  credDraft = new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  const at = credDraft;
+  encPackage().then(pkg => {
+    if(!pkg) return;
+    try{ localStorage.setItem(CRED_LS, JSON.stringify({base:VAULT.encryptedAt, savedAt:at, pkg})); }
+    catch(_){ }
+  }).catch(() => {});
+}
+async function restoreCredDraft(){
+  let d = null;
+  try{ d = JSON.parse(localStorage.getItem(CRED_LS) || 'null'); }catch(_){ }
+  if(!d || !d.pkg){ return; }
+  if(d.base !== VAULT.encryptedAt){ dropCredStore(); return; }   /* 원장이 더 새 것이면 버린다 */
+  try{
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(d.pkg.iv)}, vaultKey, b64(d.pkg.data));
+    vaultData = JSON.parse(new TextDecoder().decode(pt));
+    credDraft = d.savedAt || '저장됨';
+  }catch(_){ dropCredStore(); }                                  /* 비밀번호가 바뀌었으면 못 연다 */
+}
+function dropCredStore(){ try{ localStorage.removeItem(CRED_LS); }catch(_){ } credDraft = ''; }
+async function dropCreds(){
+  dropCredStore();
+  try{
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(VAULT.iv)}, vaultKey, b64(VAULT.data));
+    vaultData = JSON.parse(new TextDecoder().decode(pt));
+  }catch(_){ vaultData = null; vaultKey = null; }
+  resetPanel(); drawTabs(); draw();
+}
+async function downloadCreds(){
+  const pkg = await encPackage();
+  if(!pkg){ alert('먼저 잠금을 해제하세요.'); return; }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(pkg,null,2)],{type:'application/json'}));
+  a.download = 'credentials.enc.json'; a.click();
+}
+function credBar(){ return draftBar('v', credDraft, VAULT.encryptedAt, 'credentials.enc.json', '[8] 접속정보 저장'); }
+function bindCredBar(){
+  const dl = $('#vdl'); if(dl) dl.onclick = downloadCreds;
+  const dp = $('#vdrop'); if(dp) dp.onclick = () => {
+    if(confirm('화면에서 고친 접속정보를 모두 버리고 원장(credentials.enc.json) 상태로 되돌립니다.')) dropCreds();
+  };
+}
+
+/* ==========================================================================
+   🔐 인증서·도메인 · 📅 정기업무 캘린더
+   원장은 data\schedule.json 하나이고, 위 SCHEDULE_DATA 블록은 그 사본이다.
+   화면에서 고친 내용은 이 브라우저에만 임시 저장되며,
+   [schedule.json 내려받기] → 정보관리.cmd [5] 일정 저장 을 거쳐야 원장에 반영된다.
+   ========================================================================== */
+const SCHED_LS = 'jeilm.chongmu.schedule.v1';
+const FREQS = ['매주','매월','격월','분기','반기','매년','수시'];
+const WD = ['일','월','화','수','목','금','토'];
+
+const TODAY0 = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const TODAY = ymd(TODAY0);
+const parseD = s => { const m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(String(s??'').trim()); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; };
+const dday = s => { const d = parseD(s); return d ? Math.round((d - TODAY0)/86400000) : null; };
+const ddayTxt = n => n < 0 ? `${-n}일 지남` : n === 0 ? '오늘' : `D-${n}`;
+const ddayCls = n => n <= 7 ? 'bad' : n <= 30 ? 'warn' : 'ok';
+
+/* ---------- 저장소 (원장 사본 + 브라우저 임시본) ---------- */
+let schedDraft = '';
+let SCHED = (() => {
+  try{
+    const raw = localStorage.getItem(SCHED_LS);
+    if(raw){
+      const d = JSON.parse(raw);
+      if(d && d.base === SCHEDULE.revision && d.data){ schedDraft = d.savedAt || '저장됨'; return d.data; }
+      localStorage.removeItem(SCHED_LS);   /* 원장이 더 새 것이면 임시본은 버린다 */
+    }
+  }catch(_){}
+  return JSON.parse(JSON.stringify(SCHEDULE));
+})();
+['certs','routines','logs','certKinds','routineCats'].forEach(k => { if(!Array.isArray(SCHED[k])) SCHED[k] = []; });
+
+function saveSched(){
+  SCHED.updatedAt = TODAY;
+  try{
+    const at = new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    localStorage.setItem(SCHED_LS, JSON.stringify({base:SCHEDULE.revision, savedAt:at, data:SCHED}));
+    schedDraft = at;
+  }catch(_){
+    schedDraft = '(브라우저 저장 실패)';
+    alert('브라우저에 임시 저장하지 못했습니다. 창을 닫기 전에 [schedule.json 내려받기] 를 눌러 두세요.');
+  }
+}
+function dropDraft(){
+  localStorage.removeItem(SCHED_LS); schedDraft = '';
+  SCHED = JSON.parse(JSON.stringify(SCHEDULE));
+  ['certs','routines','logs','certKinds','routineCats'].forEach(k => { if(!Array.isArray(SCHED[k])) SCHED[k] = []; });
+  resetPanel(); drawTabs(); draw();
+}
+function downloadSched(){
+  const out = JSON.parse(JSON.stringify(SCHED)); out.updatedAt = TODAY;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
+  a.download = 'schedule.json'; a.click();
+}
+function nextId(pre, arr){
+  const re = new RegExp('^'+pre+'-(\\d+)$'); let n = 0;
+  (arr||[]).forEach(o => { const m = re.exec(o.id||''); if(m) n = Math.max(n, +m[1]); });
+  return pre + '-' + String(n+1).padStart(3,'0');
+}
+
+/* ---------- 주기 계산 ----------
+   anchor: 매주=요일(월~일) · 매월=일자(1~31 또는 '말일') · 격월/분기/반기/매년='MM-DD' */
+const lastDay = (y,m) => new Date(y, m, 0).getDate();
+function dayNum(y, m, spec){
+  const s = String(spec??'').trim(); if(!s) return 0;
+  const L = lastDay(y,m);
+  if(s === '말일') return L;
+  const n = parseInt(s,10);
+  return n >= 1 ? Math.min(n, L) : 0;
+}
+function occDays(r, y, m){
+  if(r.state === '종료') return [];
+  const a = String(r.anchor??'').trim(), out = [];
+  if(r.freq === '매주'){
+    const w = WD.indexOf(a); if(w < 0) return [];
+    for(let d=1; d<=lastDay(y,m); d++) if(new Date(y,m-1,d).getDay() === w) out.push(d);
+  } else if(r.freq === '매월'){
+    const d = dayNum(y,m,a); if(d) out.push(d);
+  } else {
+    const step = {'격월':2,'분기':3,'반기':6,'매년':12}[r.freq];
+    const mm = /^(\d{1,2})-(\d{1,2})$/.exec(a);
+    if(step && mm && ((((m - (+mm[1])) % step) + step) % step) === 0){
+      const d = dayNum(y,m,mm[2]); if(d) out.push(d);
+    }
+  }
+  return out;
+}
+function nextDue(r){
+  if(r.next && parseD(r.next)) return r.next;                 /* 직접 지정이 우선 */
+  let y = TODAY0.getFullYear(), m = TODAY0.getMonth()+1;
+  for(let i=0; i<26; i++){
+    for(const d of occDays(r,y,m)){
+      const s = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      if(s >= TODAY) return s;
+    }
+    if(++m > 12){ m = 1; y++; }
+  }
+  return '';
+}
+const isDone = (refId, due) => (SCHED.logs||[]).some(l => l.refId === refId && l.due === due);
+
+function certState(c){
+  if(c.state === '해지') return {k:'off', t:'해지'};
+  const n = dday(c.expiry) ?? dday(c.contractEnd);   /* 설치본 만기 우선, 없으면 서비스(계약) 만기 */
+  if(n === null)  return {k:'', t:'만료일 미확인'};
+  if(n < 0)       return {k:'bad', t:`만료 ${-n}일 경과`};
+  if(n <= 30)     return {k:'bad', t:ddayTxt(n)};
+  if(n <= 60)     return {k:'warn', t:ddayTxt(n)};
+  return {k:'ok', t:ddayTxt(n)};
+}
+
+/* ---------- 달력용 이벤트 ---------- */
+function monthEvents(y, m){
+  const map = {}, put = (ds, ev) => { (map[ds] = map[ds] || []).push(ev); };
+  const pad = d => `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  (SCHED.routines||[]).forEach(r => {
+    if(r.state === '종료') return;
+    const days = occDays(r,y,m).slice();
+    const nx = parseD(r.next);
+    if(nx && nx.getFullYear() === y && nx.getMonth()+1 === m && !days.includes(nx.getDate())) days.push(nx.getDate());
+    days.sort((a,b)=>a-b).forEach(d => {
+      const ds = pad(d);
+      put(ds, {type:'routine', id:r.id, title:r.title, cat:r.category, owner:r.owner, due:ds, done:isDone(r.id,ds)});
+    });
+  });
+  (SCHED.certs||[]).forEach(c => {
+    if(c.state === '해지') return;
+    const e = parseD(c.expiry);
+    if(e){
+      if(e.getFullYear() === y && e.getMonth()+1 === m) put(ymd(e), {type:'cert', id:c.id, title:`${c.name} 만료`, cat:c.kind});
+      const w = new Date(e); w.setDate(w.getDate()-30);
+      if(w.getFullYear() === y && w.getMonth()+1 === m) put(ymd(w), {type:'alert', id:c.id, title:`${c.name} 갱신 착수`, cat:c.kind});
+    }
+    const ce = parseD(c.contractEnd);
+    if(ce && ce.getFullYear() === y && ce.getMonth()+1 === m && c.contractEnd !== c.expiry)
+      put(ymd(ce), {type:'alert', id:c.id, title:`${c.name} 서비스(계약) 만기`, cat:c.kind});
+  });
+  (SCHED.logs||[]).forEach(l => {
+    const d = parseD(l.date); if(!d || d.getFullYear() !== y || d.getMonth()+1 !== m) return;
+    put(l.date, {type:'log', id:l.id, title:l.title, cat:l.result || '기록'});
+  });
+  return map;
+}
+function upcoming(days){
+  const lim = new Date(TODAY0); lim.setDate(lim.getDate()+days);
+  const out = [];
+  (SCHED.routines||[]).forEach(r => {
+    if(r.state === '종료') return;
+    const n = nextDue(r); const d = parseD(n);
+    if(d && d <= lim) out.push({date:n, type:'routine', ref:r, title:r.title, sub:r.category, done:isDone(r.id,n)});
+  });
+  (SCHED.certs||[]).forEach(c => {
+    if(c.state === '해지') return;
+    const d = parseD(c.expiry);
+    if(d && d <= lim) out.push({date:c.expiry, type:'cert', ref:c, title:`${c.name} 만료`, sub:c.kind});
+    const ce = parseD(c.contractEnd);
+    if(ce && ce <= lim && c.contractEnd !== c.expiry)
+      out.push({date:c.contractEnd, type:'cert', ref:c, title:`${c.name} 서비스(계약) 만기`, sub:c.kind});
+  });
+  return out.sort((a,b) => a.date.localeCompare(b.date));
+}
+
+/* ---------- 공통 UI ---------- */
+/* 저장 안내 띠 — 연락처·접속정보·일정이 같은 모양을 쓴다 (pre 는 버튼 id 접두어) */
+function draftBar(pre, savedAt, lastAt, file, step){
+  return `<div class="schedbar${savedAt?' dirty':''}">${savedAt
+    ? `<b>저장하지 않은 변경</b> <span>${esc(savedAt)}</span>
+       <span class="grow"></span>
+       <button class="mini p" id="${pre}dl">저장 — ${esc(file)} 내려받기</button>
+       <button class="mini" id="${pre}drop">되돌리기</button>
+       <span>내려받은 뒤 <code>정보관리.cmd</code> ${esc(step)} 실행</span>`
+    : `최종 저장 ${esc(lastAt||'-')}
+       <span class="grow"></span>
+       <button class="mini" id="${pre}dl">${esc(file)} 내려받기</button>`}</div>`;
+}
+function schedBar(){ return draftBar('s', schedDraft, SCHEDULE.updatedAt, 'schedule.json', '[5] 일정 저장'); }
+function bindSchedBar(){
+  const dl = $('#sdl'); if(dl) dl.onclick = downloadSched;
+  const dp = $('#sdrop'); if(dp) dp.onclick = () => {
+    if(confirm('브라우저에 임시 저장된 변경을 모두 버리고 원장(schedule.json) 상태로 되돌립니다.')) dropDraft();
+  };
+}
+function chipsOf(all, keyOf){
+  const ks = [];
+  all.forEach(o => { const k = keyOf(o); if(!ks.includes(k)) ks.push(k); });
+  if(cat !== '전체' && !ks.includes(cat)) cat = '전체';
+  return `<div class="chips">
+    <span class="chip${cat==='전체'?' on':''}" data-c="전체">전체<span class="n">${all.length}</span></span>
+    ${ks.map(k => `<span class="chip${cat===k?' on':''}" data-c="${esc(k)}">${esc(k)}<span class="n">${all.filter(o=>keyOf(o)===k).length}</span></span>`).join('')}
+  </div>`;
+}
+const bindChips = () => document.querySelectorAll('.chip').forEach(ch => ch.onclick = () => { cat = ch.dataset.c; draw(); });
+
+/* ---------- 공통 — 행 버튼 · 요약카드 · 표 안에서 바로 수정 ---------- */
+const rowBtns = (kind, id) => `<span class="nw">`
+  + `<button class="mini" data-edit="${kind}:${esc(id)}">수정</button>`
+  + `<button class="mini dgr" data-del="${kind}:${esc(id)}">삭제</button></span>`;
+
+const statCard = (k, v, s, cls) => `<div class="stat${cls?' '+cls:''}">`
+  + `<span class="k">${esc(k)}</span><b>${esc(v)}</b>`
+  + `<span class="s" title="${esc(s||'')}">${esc(s||'')}</span></div>`;
+
+/* 표의 칸을 눌러 그 자리에서 고친다 — td[data-ic="종류:ID:필드:입력형"] */
+const IC_OPTS = {
+  'routine:category':() => SCHED.routineCats, 'routine:freq':() => FREQS,
+  'routine:state':()   => ['운영','종료'],
+  'cert:kind':()       => SCHED.certKinds,    'cert:state':() => ['운영','해지'],
+  'contact:category':()=> CATS_ALL,           'contact:group':() => GROUPS,
+  'contact:status':()  => ['활성','보류','종료'],
+  'cred:category':()   => VAULT_CATS
+};
+const icTd = (kind, id, key, type) =>
+  ` data-ic="${kind}:${esc(id)}:${key}:${type}" title="클릭해서 바로 수정"`;
+let icOn = false;
+function startInline(td){
+  if(icOn) return;
+  const [kind, id, key, type] = td.dataset.ic.split(':');
+  const arr = ARR_OF(kind), o = arr && arr.find(x => x.id === id);
+  if(!o) return;
+  const val = String(o[key] ?? ''), prev = td.innerHTML;
+  let el;
+  if(type === 'sel'){
+    el = document.createElement('select');
+    const opts = IC_OPTS[kind+':'+key] ? IC_OPTS[kind+':'+key]() : [];
+    el.innerHTML = (opts.includes(val) ? opts : [val, ...opts])
+      .map(x => `<option${x===val?' selected':''}>${esc(x)}</option>`).join('');
+  } else {
+    el = document.createElement('input');
+    el.type = type === 'date' ? 'date' : 'text';
+    el.value = val;
+  }
+  el.className = 'icin';
+  icOn = true; td.innerHTML = ''; td.appendChild(el);
+  el.focus(); if(el.select) el.select();
+  const done = ok => {
+    if(!icOn) return;
+    icOn = false;
+    const nv = el.value.trim();
+    if(ok && nv !== val){ o[key] = nv; if(kind==='cred') o.updatedAt = TODAY; afterInline(kind); }
+    else td.innerHTML = prev;
+  };
+  el.onblur = () => done(true);
+  el.onkeydown = e => {
+    if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); el.blur(); }
+    else if(e.key === 'Escape'){ el.onblur = null; done(false); }
+  };
+  if(type === 'sel') el.onchange = () => el.blur();
+}
+/* 종류별 임시 저장 — 연락처·접속정보·일정이 각각 따로 보관된다 */
+function saveOf(kind){
+  if(kind === 'contact') saveContacts();
+  else if(kind === 'cred') touchCreds();
+  else saveSched();
+}
+const draftOf = kind => kind==='contact' ? contDraft : kind==='cred' ? credDraft : schedDraft;
+/* 저장 안내 띠가 처음 뜰 때만 골격을 다시 만든다 (검색·입력칸 유지) */
+function afterInline(kind){
+  const wasClean = !draftOf(kind);
+  saveOf(kind);
+  if(wasClean) resetPanel();
+  drawTabs(); draw();
+}
+document.addEventListener('click', e => {
+  const td = e.target.closest('td[data-ic]');
+  if(td && !td.querySelector('.icin')) startInline(td);
+});
+
+const tdOf = (col, r, kind) => `<td${col.ic ? icTd(kind, r.id, col.k, col.ic) : ''}>${col.r(r)}</td>`;
+function tableHtml(cols, rows, kind){
+  return `<div class="tablebox">
+    <table><thead><tr>${cols.map(c => `<th data-k="${c.k}">${c.t}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr>${cols.map(c => tdOf(c, r, kind)).join('')}</tr>`).join('')}</tbody></table>
+    ${rows.length?'':'<div class="empty">항목 없음</div>'}
+  </div>`;
+}
+
+/* ---------- 🔐 인증서·도메인 ---------- */
+const COLS_CERT = [
+  {k:'kind',   t:'구분',   ic:'sel',  r:c=>`<span class="cat">${esc(c.kind||'-')}</span>`},
+  {k:'name',   t:'대상',   ic:'text', r:c=>`<span class="co">${esc(c.name)}</span>`
+      + (c.services||c.target ? `<div class="sub">${esc(c.services||c.target)}</div>` : '')},
+  {k:'issuer', t:'발급기관', ic:'text', r:c=>esc(c.issuer)||dash},
+  {k:'expiry', t:'만료일',  ic:'date', r:c=>c.expiry?`<span class="tel">${esc(c.expiry)}</span>`:dash},
+  {k:'_dd',    t:'남은기간', r:c=>{ const s=certState(c); return `<span class="badge ${s.k}">${esc(s.t)}</span>`; }},
+  {k:'contractEnd', t:'서비스 만기', ic:'date', r:c=>c.contractEnd?`<span class="sub">${esc(c.contractEnd)}</span>`:dash},
+  {k:'owner',  t:'담당',   ic:'text', r:c=>(esc(c.owner)||dash)+(c.account?`<div class="sub">🔒 ${esc(c.account)}</div>`:'')},
+  {k:'note',   t:'메모',   ic:'text', r:c=>`<span class="sub cut" title="${esc(c.note)}">${esc(c.note)}</span>`},
+  {k:'_a',     t:'',       r:c=>rowBtns('cert', c.id)}
+];
+function drawCert(){
+  const all = SCHED.certs;
+  const chips = chipsOf(all, c => c.kind||'기타');
+  const rows = search(cat==='전체' ? all : all.filter(c => (c.kind||'기타')===cat));
+  const cnt = {bad:0, warn:0, ok:0, '':0, off:0};
+  all.forEach(c => cnt[certState(c).k]++);
+  const live = all.filter(c => c.state!=='해지' && (parseD(c.expiry)||parseD(c.contractEnd)))
+                  .sort((a,b)=>String(a.expiry||a.contractEnd).localeCompare(String(b.expiry||b.contractEnd)));
+  const near = live[0], nd = near ? (dday(near.expiry) ?? dday(near.contractEnd)) : null;
+
+  if(panelMode !== 'cert'){
+    panelMode = 'cert';
+    $('#panel').innerHTML = `
+      ${schedBar()}
+      <div class="stats" id="stats"></div>
+      <div class="bar">
+        <input type="search" id="q" value="${esc(q)}" placeholder="검색">
+        <span class="meta" id="meta"></span>
+        <span class="grow"></span>
+        <button class="p" id="addC">+ 인증서 추가</button>
+        <button onclick="window.print()">인쇄</button>
+      </div>
+      <div id="result"></div>`;
+    bindSearch(); bindSchedBar();
+    $('#addC').onclick = () => openForm('cert', null,
+      {kind:(SCHED.certKinds[0]||''), owner:'총무팀', cycle:'1년', state:'운영'});
+  }
+  $('#stats').innerHTML =
+      statCard('등록', all.length, '')
+    + statCard('만료·임박', cnt.bad, 'D-30 이내', cnt.bad?'bad':'mut')
+    + statCard('유의', cnt.warn, 'D-60 이내', cnt.warn?'warn':'mut')
+    + statCard('만료일 미확인', cnt[''], '', cnt['']?'warn':'mut')
+    + statCard('가장 가까운 만료', near?ddayTxt(nd):'-',
+        near?`${near.name} · ${near.expiry||near.contractEnd}`:'', near&&nd<=30?'bad':'');
+  $('#result').innerHTML = chips + tableHtml(COLS_CERT, rows, 'cert');
+  $('#meta').textContent = `${rows.length}건`;
+  bindTable(); bindChips();
+}
+
+/* ---------- 📅 정기업무 · 캘린더 ---------- */
+let calY = TODAY0.getFullYear(), calM = TODAY0.getMonth()+1, calSel = TODAY;
+const COLS_ROUT = [
+  {k:'category', t:'분류',  ic:'sel',  r:r=>`<span class="cat">${esc(r.category||'-')}</span>`},
+  {k:'title',    t:'업무명', ic:'text', r:r=>`<span class="co" title="${esc(r.howto)}">${esc(r.title)}</span>`},
+  {k:'target',   t:'대상',  ic:'text', r:r=>`<span class="sub cut" title="${esc(r.target)}">${esc(r.target)}</span>`},
+  {k:'freq',     t:'주기',  ic:'sel',  r:r=>esc(r.freq)||dash},
+  {k:'anchor',   t:'기준일', ic:'text', r:r=>esc(r.anchor)||dash},
+  {k:'_next',    t:'다음 예정', r:r=>{
+      const n = nextDue(r);
+      if(!n) return '<span class="sub">-</span>';
+      const v = dday(n);
+      return `<span class="tel">${esc(n)}</span> <span class="badge ${ddayCls(v)}">${ddayTxt(v)}</span>`
+           + (isDone(r.id,n)?' <span class="badge ok">처리됨</span>':''); }},
+  {k:'owner',    t:'담당',  ic:'text', r:r=>esc(r.owner)||dash},
+  {k:'note',     t:'메모',  ic:'text', r:r=>`<span class="sub cut" title="${esc(r.note)}">${esc(r.note)}</span>`},
+  {k:'_a',       t:'',      r:r=>rowBtns('routine', r.id)}
+];
+/* 지난 예정 중 처리기록이 없는 건 */
+function overdue(days){
+  const from = new Date(TODAY0); from.setDate(from.getDate()-days);
+  const fromS = ymd(from), out = [];
+  (SCHED.routines||[]).forEach(r => {
+    if(r.state === '종료') return;
+    let y = from.getFullYear(), m = from.getMonth()+1;
+    for(let i=0; i<=Math.ceil(days/28)+1; i++){
+      occDays(r,y,m).forEach(d => {
+        const s = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        if(s >= fromS && s < TODAY && !isDone(r.id,s)) out.push({date:s, ref:r});
+      });
+      if(++m > 12){ m = 1; y++; }
+    }
+  });
+  return out.sort((a,b) => a.date.localeCompare(b.date));
+}
+function calHtml(){
+  const ev = monthEvents(calY, calM);
+  const start = new Date(calY, calM-1, 1).getDay(), L = lastDay(calY, calM);
+  let cells = '';
+  for(let i=0;i<start;i++) cells += '<div class="cd off"></div>';
+  for(let d=1; d<=L; d++){
+    const ds = `${calY}-${String(calM).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const list = ev[ds] || [], w = new Date(calY, calM-1, d).getDay();
+    cells += `<div class="cd${ds===TODAY?' today':''}${ds===calSel?' sel':''}" data-d="${ds}">
+      <span class="dn${w===0?' sun':w===6?' sat':''}">${d}</span>
+      ${list.slice(0,2).map(e=>`<span class="ev ${e.type}${e.done?' done':''}" title="${esc(e.title)}">${esc(e.title)}</span>`).join('')}
+      ${list.length>2?`<span class="more">+${list.length-2}</span>`:''}</div>`;
+  }
+  for(let i=(start+L)%7; i && i<7; i++) cells += '<div class="cd off"></div>';
+  return `<div class="calhead">
+      <button class="mini" id="pm">‹</button>
+      <b>${calY}년 ${calM}월</b>
+      <button class="mini" id="nm">›</button>
+      <button class="mini" id="tm">오늘</button>
+      <span class="legend"><span><i class="dot routine"></i>업무</span><span><i class="dot alert"></i>갱신 착수</span><span><i class="dot cert"></i>만료</span><span><i class="dot log"></i>기록</span></span>
+    </div>
+    <div class="calgrid">${WD.map((w,i)=>`<div class="cw${i===0?' sun':i===6?' sat':''}">${w}</div>`).join('')}</div>
+    <div class="calgrid" id="cal">${cells}</div>`;
+}
+function drawCal(){
+  $('#calbox').innerHTML = calHtml();
+  const move = n => {
+    calM += n; if(calM > 12){ calM = 1; calY++; } if(calM < 1){ calM = 12; calY--; }
+    calSel = `${calY}-${String(calM).padStart(2,'0')}-01`;
+    drawCal(); drawDay();
+  };
+  $('#pm').onclick = () => move(-1);
+  $('#nm').onclick = () => move(1);
+  $('#tm').onclick = () => { calY = TODAY0.getFullYear(); calM = TODAY0.getMonth()+1; calSel = TODAY; drawCal(); drawDay(); };
+  document.querySelectorAll('#cal .cd[data-d]').forEach(el =>
+    el.onclick = () => { calSel = el.dataset.d; drawCal(); drawDay(); });
+}
+function drawDay(){
+  const list = monthEvents(calY, calM)[calSel] || [], d = parseD(calSel);
+  const qd = $('#qd'); if(qd && d) qd.value = calSel;
+  $('#daybox').innerHTML =
+    `<h3>${d?`${d.getMonth()+1}월 ${d.getDate()}일 (${WD[d.getDay()]})`:'-'}<span class="sub"> · ${list.length}건</span></h3>`
+    + (list.length ? list.map(e => {
+        const r = e.type==='routine' ? SCHED.routines.find(x => x.id===e.id) : null;
+        return `<div class="urow"><i class="dot ${e.type}"></i><div class="ub">
+          <b${e.done?' class="strike"':''}>${esc(e.title)}</b>
+          ${r&&r.howto?`<span class="sub">${esc(r.howto)}</span>`:''}
+          <div class="ua">
+            ${e.type==='routine'&&!e.done?`<button class="mini p" data-done="${esc(e.id)}|${esc(e.due)}|${esc(e.title)}">완료</button>`:''}
+            ${rowBtns(e.type==='alert'?'cert':e.type, e.id)}
+          </div></div></div>`;
+      }).join('') : '<div class="none">일정 없음</div>');
+}
+function drawUp(){
+  const od = overdue(90), up = upcoming(60);
+  const line = (date, badge, cls, title, sub, btn) => `<div class="urow"><div class="ub">
+      <b>${esc(title)}</b>
+      <span class="sub">${esc(date)}${sub?` · ${esc(sub)}`:''}</span>
+      <div class="ua"><span class="badge ${cls}">${esc(badge)}</span>${btn||''}</div>
+    </div></div>`;
+  $('#upbox').innerHTML =
+    (od.length ? `<h3>지난 예정<span class="sub"> · ${od.length}건</span></h3>`
+      + od.map(o => line(o.date, ddayTxt(dday(o.date)), 'bad', o.ref.title, o.ref.category,
+          `<button class="mini p" data-done="${esc(o.ref.id)}|${esc(o.date)}|${esc(o.ref.title)}">완료</button>`)).join('') : '')
+    + `<h3${od.length?' style="margin-top:12px"':''}>다가오는 60일<span class="sub"> · ${up.length}건</span></h3>`
+    + (up.length ? up.map(u => line(u.date, ddayTxt(dday(u.date)), ddayCls(dday(u.date)), u.title, u.sub,
+        u.type==='routine'&&!u.done?`<button class="mini p" data-done="${esc(u.ref.id)}|${esc(u.date)}|${esc(u.title)}">완료</button>`:''
+      )).join('') : '<div class="none">예정 없음</div>');
+}
+function drawRoutine(){
+  const all = SCHED.routines;
+  const chips = chipsOf(all, r => r.category||'기타');
+  const rows = search(cat==='전체' ? all : all.filter(r => (r.category||'기타')===cat));
+
+  if(panelMode !== 'routine'){
+    panelMode = 'routine';
+    $('#panel').innerHTML = `
+      ${schedBar()}
+      <div class="stats" id="stats"></div>
+      <div class="cols">
+        <div class="calwrap" id="calbox"></div>
+        <div class="side">
+          <div class="daybox" id="daybox"></div>
+          <div class="daybox" id="upbox"></div>
+        </div>
+      </div>
+      <div class="quick">
+        <input type="date" id="qd" value="${TODAY}">
+        <input type="text" id="qt" placeholder="처리한 내용 입력 후 Enter">
+        <input type="text" id="qi" class="qid" placeholder="관련 ID">
+        <button class="p" id="qadd">기록</button>
+      </div>
+      <div class="bar">
+        <input type="search" id="q" value="${esc(q)}" placeholder="검색">
+        <span class="meta" id="meta"></span>
+        <span class="grow"></span>
+        <button class="p" id="addR">+ 업무 추가</button>
+        <button id="addL">+ 기록 추가</button>
+        <button onclick="window.print()">인쇄</button>
+      </div>
+      <div id="result"></div>`;
+    bindSearch(); bindSchedBar();
+    $('#addR').onclick = () => openForm('routine', null,
+      {category:(SCHED.routineCats[0]||''), freq:'매월', owner:'총무', state:'운영'});
+    $('#addL').onclick = () => openForm('log', null, {date:TODAY, result:'완료'});
+    $('#qadd').onclick = quickLog;
+    $('#qt').onkeydown = e => { if(e.key === 'Enter' && !e.isComposing) quickLog(); };
+    $('#qi').onkeydown = e => { if(e.key === 'Enter' && !e.isComposing) quickLog(); };
+  }
+
+  const thisMonth = all.reduce((n,r) => n + occDays(r, TODAY0.getFullYear(), TODAY0.getMonth()+1).length, 0);
+  const od = overdue(90), up = upcoming(60), nx = up[0];
+  $('#stats').innerHTML =
+      statCard('등록', all.length, '')
+    + statCard('이번 달', thisMonth, `${TODAY0.getMonth()+1}월 예정`)
+    + statCard('지난 예정', od.length, od.length?'미처리':'없음', od.length?'bad':'mut')
+    + statCard('60일 내', up.length, '', up.length?'':'mut')
+    + statCard('다음 일정', nx?ddayTxt(dday(nx.date)):'-', nx?`${nx.title} · ${nx.date}`:'',
+        nx&&dday(nx.date)<=7?'warn':'');
+
+  drawCal(); drawDay(); drawUp();
+
+  const logs = (SCHED.logs||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  const shown = logs.slice(0,20);
+  const logHtml = `<h2 class="sh">처리 기록<span class="sub"> · ${logs.length}건</span></h2>
+    <div class="daybox">${shown.length ? shown.map(l => `
+      <div class="drow">
+        <span class="dt">${esc(l.date)}</span>
+        <span class="badge ${l.result==='완료'?'ok':l.result==='보류'?'warn':''}">${esc(l.result||'기록')}</span>
+        <b>${esc(l.title)}</b>
+        ${l.refId?`<span class="sub">${esc(l.refId)}</span>`:''}
+        <span class="grow"></span>${rowBtns('log', l.id)}
+      </div>`).join('') : '<div class="none">기록 없음</div>'}</div>`;
+
+  $('#result').innerHTML = chips + tableHtml(COLS_ROUT, rows, 'routine') + logHtml;
+  $('#meta').textContent = `${rows.length}건`;
+  bindTable(); bindChips();
+}
+/* 한 줄 기록 — 달력에서 고른 날짜로 처리 내용을 바로 남긴다 */
+function quickLog(){
+  const t = $('#qt').value.trim();
+  if(!t){ $('#qt').focus(); return; }
+  SCHED.logs.push({id:nextId('L', SCHED.logs), date:($('#qd').value || TODAY), title:t,
+                   result:'완료', refId:$('#qi').value.trim(), due:'', note:''});
+  afterEdit('log');
+}
+/* ---------- 추가·수정 창 ---------- */
+const F_CERT = [
+  {k:'kind',   t:'구분', type:'sel', opt:()=>SCHED.certKinds},
+  {k:'name',   t:'대상 이름·도메인', req:1, ph:'예: *.jeilm.co.kr'},
+  {k:'target', t:'적용 대상·용도'},
+  {k:'services', t:'적용 서비스', ph:'예: ERP · 그룹웨어 · 문서중앙화 (갱신 시 각각 설치)'},
+  {k:'issuer', t:'등록·발급기관', ph:'예: 아이네임즈'},
+  {k:'start',  t:'시작일', type:'date'},
+  {k:'expiry', t:'만료일 (설치된 인증서)', type:'date'},
+  {k:'contractEnd', t:'서비스(계약) 만기일', type:'date'},
+  {k:'cycle',  t:'갱신주기', ph:'예: 1년'},
+  {k:'cost',   t:'비용'},
+  {k:'owner',  t:'담당'},
+  {k:'account',t:'관리 계정 (🔒 탭 ID)', ph:'예: S-036'},
+  {k:'contactId', t:'연락처 ID', ph:'예: C-031'},
+  {k:'note',   t:'비고', type:'ta'},
+  {k:'state',  t:'상태', type:'sel', opt:()=>['운영','해지']}
+];
+const F_ROUT = [
+  {k:'title',    t:'업무명', req:1},
+  {k:'category', t:'분류', type:'sel', opt:()=>SCHED.routineCats},
+  {k:'freq',     t:'주기', type:'sel', opt:()=>FREQS},
+  {k:'anchor',   t:'기준일', ph:'매주=월~일 · 매월=1~31 또는 말일 · 격월/분기/반기/매년=MM-DD'},
+  {k:'next',     t:'다음 예정일 (직접 지정)', type:'date'},
+  {k:'owner',    t:'담당'},
+  {k:'target',   t:'대상·거래처'},
+  {k:'howto',    t:'처리 절차', type:'ta'},
+  {k:'note',     t:'비고', type:'ta'},
+  {k:'state',    t:'상태', type:'sel', opt:()=>['운영','종료']}
+];
+const F_LOG = [
+  {k:'date',   t:'일자', type:'date', req:1},
+  {k:'title',  t:'내용', req:1},
+  {k:'result', t:'결과', type:'sel', opt:()=>['완료','진행중','보류','확인필요']},
+  {k:'refId',  t:'관련 항목 ID', ph:'예: R-001 / K-003 (없으면 비워 둠)'},
+  {k:'due',    t:'해당 예정일', type:'date'},
+  {k:'note',   t:'비고', type:'ta'}
+];
+const F_CONTACT = [
+  {k:'group',       t:'대분류', type:'sel', opt:()=>GROUPS},
+  {k:'category',    t:'분류',   type:'sel', opt:()=>CATS_ALL},
+  {k:'company',     t:'업체·기관', req:1},
+  {k:'person',      t:'담당자'},
+  {k:'position',    t:'직위'},
+  {k:'mobile',      t:'휴대전화', ph:'010-0000-0000'},
+  {k:'office',      t:'대표번호', ph:'02-000-0000'},
+  {k:'email',       t:'이메일'},
+  {k:'scope',       t:'담당 업무'},
+  {k:'note',        t:'비고', type:'ta'},
+  {k:'source',      t:'출처', ph:'어느 자료에서 온 정보인지'},
+  {k:'lastContact', t:'최근 접촉', type:'date'},
+  {k:'status',      t:'상태', type:'sel', opt:()=>['활성','보류','종료']}
+];
+const F_CRED = [
+  {k:'category', t:'분류', type:'sel', opt:()=>VAULT_CATS},
+  {k:'system',   t:'시스템', req:1, ph:'예: 그룹웨어'},
+  {k:'target',   t:'접속대상', ph:'예: https://gw.jeilm.co.kr · 172.10.100.6:3389 (RDP)'},
+  {k:'account',  t:'아이디'},
+  {k:'password', t:'비밀번호', ph:'입력한 값이 화면에 그대로 보입니다 — 주변을 확인하세요'},
+  {k:'info',     t:'비고', type:'ta'}
+];
+const F_MAP  = {cert:F_CERT, routine:F_ROUT, log:F_LOG, contact:F_CONTACT, cred:F_CRED};
+const F_OF   = k => F_MAP[k] || F_LOG;
+const ARR_OF = k => k==='cert' ? SCHED.certs : k==='routine' ? SCHED.routines : k==='log' ? SCHED.logs
+                  : k==='contact' ? CONTACTS
+                  : k==='cred' ? (vaultData ? vaultData.credentials : null) : null;
+const NAME_OF = {cert:'인증서·도메인', routine:'정기업무', log:'업무기록', contact:'연락처', cred:'접속정보'};
+const PRE_OF  = {cert:'K', routine:'R', log:'L', contact:'C', cred:'S'};
+let formCtx = null;
+
+/* ==========================================================================
+   일괄 붙여넣기 — 표·엑셀·메일에서 복사한 여러 줄을 한 번에 등록한다.
+   붙여넣는 즉시 칸을 나눠 담고(전화·메일·직위·주소는 생김새로 자동 판정),
+   바로 이어지는 수정 화면에서 손본 뒤 한꺼번에 대장에 넣는다.
+   등록 결과도 다른 편집과 똑같이 브라우저 임시본이므로,
+   [내려받기] → 정보관리.cmd 회수를 거쳐야 원장에 들어간다.
+   ========================================================================== */
+
+/* ---------- 생김새로 알아보는 값 ---------- */
+const RE_MAIL  = /[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/g;
+const RE_TEL   = /\+82[ \-.]?\d{1,2}[ \-.]?\d{3,4}[ \-.]?\d{4}|0\d{1,2}[ \-.]?\d{3,4}[ \-.]?\d{4}|1[5-9]\d{2}[ \-.]?\d{4}/g;
+const RE_SEC   = /^(.+?)\s*(\d+)\s*건$/;          /* 표의 분류 머리글 "임대·건물4건" */
+const POSITIONS = ['회장','부회장','사장','부사장','대표','대표이사','전무','전무이사','상무','상무이사',
+  '감사','본부장','사업부장','실장','센터장','공장장','소장','관리소장','지점장','지사장','단장','국장',
+  '부장','차장','과장','팀장','파트장','계장','대리','주임','사원','기사','기장','반장','매니저','점장',
+  '원장','책임','선임','수석','연구원','컨설턴트','담당','담당자','사무장','주무관','주사','서기','이사'];
+/* 흔한 성씨로 시작하는 2~3자 한글 = 사람 이름으로 본다 (아래 낱말은 제외) */
+const RE_SURNAME = /^[김이박최정강조윤장임한오서신권황안송류전홍고문양손배백허남심노하곽성차주우구나민진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용봉사판갈피형계당빙]/;
+const NOT_NAME = ['주차','정산','계약','견적','수리','점검','설치','문의','접수','발주','납품','청구',
+  '결제','임대','관리','총무','인사','회계','구매','영업','기술','지원','상담','배송','보수','시공',
+  '감리','안전','교육','보험','세무','법무','노무','전산','보안','통신','전기','소방','공무','기타',
+  '본사','지사','공장','사무실','미정','확인','문서','자재','생산','품질','연구','개발','물류','창고'];
+
+const isName = s => /^[가-힣]{2,3}$/.test(s) && RE_SURNAME.test(s)
+  && !POSITIONS.includes(s) && !NOT_NAME.includes(s) && !/(팀|부|과|실|처|점|국|반)$/.test(s);
+/* 도메인처럼 생겼다고 다 주소는 아니다 — 포트·경로가 있거나 아는 최상위도메인일 때만 주소로 본다.
+   (이 조건이 없으면 `Pass.word1` 같은 비밀번호가 접속대상 칸으로 들어간다) */
+const RE_TLD = /\.(com|net|org|kr|io|ai|dev|app|cloud|local|lan|biz|info|edu|gov|jp|cn|us|de|uk|co|me|tv|xyz)$/i;
+const isTarget = s => {
+  const t = String(s).trim();
+  if(/^(https?:\/\/|ftp:\/\/|\\)/i.test(t)) return true;
+  if(/^\d{1,3}(\.\d{1,3}){3}(:\d+)?/.test(t)) return true;
+  const m = /^([A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)+)(:\d+)?(\/.*)?$/.exec(t);
+  return !!(m && (m[2] || m[3] || RE_TLD.test(m[1])));
+};
+
+/* 010 8835 5999 · +82-10-8835-5999 → 010-8835-5999 로 모양을 맞춘다 */
+function fmtTel(raw){
+  const s = String(raw).trim();
+  let d = s.replace(/\D/g, '');
+  if(s.startsWith('+')) d = d.replace(/^82/, '0');
+  if(/^01[016789]\d{7,8}$/.test(d)) return d.length===11
+    ? `${d.slice(0,3)}-${d.slice(3,7)}-${d.slice(7)}` : `${d.slice(0,3)}-${d.slice(3,6)}-${d.slice(6)}`;
+  if(/^02\d{7,8}$/.test(d)) return d.length===10
+    ? `02-${d.slice(2,6)}-${d.slice(6)}` : `02-${d.slice(2,5)}-${d.slice(5)}`;
+  if(/^0\d{9,10}$/.test(d)) return d.length===11
+    ? `${d.slice(0,3)}-${d.slice(3,7)}-${d.slice(7)}` : `${d.slice(0,3)}-${d.slice(3,6)}-${d.slice(6)}`;
+  if(/^1[5-9]\d{6}$/.test(d)) return `${d.slice(0,4)}-${d.slice(4)}`;
+  return s;
+}
+/* 010 으로 시작하면 휴대전화, 나머지는 대표번호. 자리가 차 있으면 비고로 흘린다. */
+function putTel(o, raw){
+  const t = fmtTel(raw);
+  const s = String(raw).trim();
+  let d = s.replace(/\D/g, ''); if(s.startsWith('+')) d = d.replace(/^82/, '0');
+  const k = /^01[016789]/.test(d) ? 'mobile' : 'office';
+  if(!o[k]){ o[k] = t; return; }
+  const alt = k==='mobile' ? 'office' : 'mobile';
+  if(!o[alt]){ o[alt] = t; return; }
+  if(o.mobile !== t && o.office !== t) o._x.push(t);
+}
+
+/* ---------- 붙여넣은 글을 줄·칸으로 자르기 ---------- */
+/* 표를 복사하면 한 줄 끝에 [수정][삭제] 글자가 따라온다 — 그것이 가장 확실한 줄 경계다. */
+function bulkChunks(text, labelAware){
+  const t = String(text || '').replace(/\r\n?/g, '\n').replace(/ /g, ' ');
+  if(/수정\s*삭제/.test(t))     return t.split(/수정\s*삭제/);
+  if(/\n[ \t]*\n/.test(t))      return t.split(/\n[ \t]*\n/);
+  if(!labelAware)               return t.split('\n');
+  /* 한 건을 `아이디:` `비밀번호:` 처럼 여러 줄로 적은 경우 — 라벨 줄은 바로 앞 건에 붙인다.
+     (붙이지 않으면 줄마다 별개 건이 되어 비밀번호 줄이 통째로 버려진다) */
+  const recs = [];
+  t.split('\n').forEach(ln => {
+    if(!ln.trim()) return;
+    if(recs.length && RE_CRED_LBL.test(ln)) recs[recs.length - 1] += '\n' + ln;
+    else recs.push(ln);
+  });
+  return recs;
+}
+/* 탭 · 줄바꿈 · 공백 두 칸 이상을 칸 경계로 본다. 빈칸 표시(-)와 버튼 글자는 버린다. */
+function bulkCells(chunk){
+  return String(chunk).split(/\t|\n| {2,}/)
+    .map(s => s.trim().replace(/\s*복사$/, '').trim())
+    .filter(s => s && s !== '-' && s !== '—' && !/^(복사|수정|삭제|보기|표시)$/.test(s));
+}
+/* 맨 앞의 분류 머리글("임대·건물4건")을 걷어내고 그 분류를 돌려준다 */
+function takeHead(tk, list){
+  let found = null;
+  while(tk.length){
+    const m = RE_SEC.exec(tk[0]); if(!m) break;
+    const s = m[1].trim();
+    if(list.includes(s)) found = s;
+    else if(s !== '전체') break;
+    tk = tk.slice(1);
+  }
+  return {tk, cat:found};
+}
+
+/* ---------- 연락처 ---------- */
+/* 분류만 알면 대분류는 원장에서 쓰던 짝을 그대로 따라간다 */
+const GROUP_OF_CAT = (() => {
+  const m = {};
+  (DATA.contacts || []).forEach(c => { if(c.category && !m[c.category]) m[c.category] = c.group; });
+  return m;
+})();
+const telKey = s => String(s || '').replace(/\D/g, '');
+
+function parseContactRow(tk, ctxCat){
+  const o = {group:'', category:ctxCat || '', company:'', person:'', position:'',
+             mobile:'', office:'', email:'', scope:'', note:'', _x:[]};
+  const rest = [];
+  tk.forEach(raw => {
+    let s = String(raw);
+    /* 칸 안에 섞여 있는 메일·번호를 먼저 뽑아낸다 */
+    s = s.replace(RE_MAIL, m => { o.email = o.email ? o.email + ' / ' + m : m; return ' '; });
+    s = s.replace(RE_TEL,  m => { putTel(o, m); return ' '; });
+    s = s.replace(/\s{2,}/g, ' ').trim().replace(/^[\-—·,\/]+|[\-—·,\/]+$/g, '').trim();
+    if(!s) return;
+    if(!o.company && CATS_ALL.includes(s)){ o.category = s; return; }
+    if(!o.company && GROUPS.includes(s)){   o.group = s;    return; }
+    if(!o.company){ o.company = s; return; }
+    /* "송인덕 이사" 처럼 이름과 직위가 한 칸에 있으면 나눈다 */
+    const np = /^([가-힣]{2,3})\s+([가-힣]{1,6})$/.exec(s);
+    if(np && !o.person && isName(np[1]) && POSITIONS.includes(np[2])){
+      o.person = np[1]; o.position = np[2]; return;
+    }
+    if(!o.position && POSITIONS.includes(s)){ o.position = s; return; }
+    if(!o.person && isName(s)){ o.person = s; return; }
+    rest.push(s);
+  });
+  o.scope = rest.shift() || '';
+  o.note  = [rest.join(' · '), ...o._x].filter(Boolean).join(' · ');
+  delete o._x;
+  return o;
+}
+function dupContact(o){
+  return CONTACTS.find(c =>
+    (o.mobile && telKey(c.mobile) === telKey(o.mobile)) ||
+    (o.company && o.person && c.company === o.company && c.person === o.person) ||
+    (o.company && !o.person && !c.person && c.company === o.company));
+}
+function parseContacts(text){
+  const out = [];
+  let ctxCat = (cat !== '전체' && CATS_ALL.includes(cat)) ? cat : '';
+  bulkChunks(text).forEach(chunk => {
+    const h = takeHead(bulkCells(chunk), CATS_ALL);
+    if(h.cat) ctxCat = h.cat;
+    if(!h.tk.length) return;
+    const o = parseContactRow(h.tk, ctxCat);
+    if(!o.company && !o.person && !o.mobile && !o.office && !o.email) return;
+    o.group = o.group || GROUP_OF_CAT[o.category] || (GROUPS.includes(active) ? active : GROUPS[0]);
+    o._dup = !!dupContact(o); o._on = !o._dup;
+    out.push(o);
+  });
+  return out;
+}
+
+/* ---------- 접속정보 ---------- */
+/* 분류 자동판정 — tools\Vault.ps1 의 Get-CredCategory 와 같은 기준 */
+const CRED_CAT_RULES = [
+  ['문서중앙화',      /문서중앙|클라우디움|cloudium|사이버다임|cyberdigm|doc\.jeilm|jeilmn_hq|jeilmn_dr/i],
+  ['공공·지원사업',   /스마트공장|smart-factory|테크노파크|gtp\.or\.kr|nextcampus|cloudsup|클라우드지원|상생누리|winwinnuri|기술보호|울타리|ultari|중소벤처|smes\.go|정부24|기업마당|bizinfo|나라장터|g2b|홈택스|hometax|지원사업|진흥원|\.go\.kr|\.or\.kr/i],
+  ['방화벽·네트워크', /방화벽|axgate|secui|bluemax|firewall|무선|wifi|wi-fi|ruckus|aruba|unleashed|스위치|switch|공유기|ap\b|vpn|4433|기가오피스|b2bcare|전용회선|회선/i],
+  ['업무시스템',      /erp|그룹웨어|onulware|onul|비젠트로|세콤|secom|smart\s*a|스마트에이|더존|plm|생산|회계|근태|급여|전자세금|바로빌|쿠콘|ecount|이카운트|모두사인|modusign|전자계약/i],
+  ['서버·인프라',     /서버|server|rdp|원격|백업|backup|veeam|sql|database|\bdb\b|nas|스토리지|ncloud|네이버\s*클라우드|aws|azure|mccs|172\.|192\.168\.|222\.122|1\.214\.|59\.6\./i],
+  ['홈페이지·도메인', /도메인|아이네임즈|inames|호스팅|카페24|cafe24|홈페이지|웹사이트|website|www\.|dns|ssl|인증서/i],
+  ['메일·협업',       /office\s*365|o365|microsoft|outlook|teams|메일|mail|gmail|google|네이버|naver|카카오|kakao|슬랙|slack|zoom/i]
+];
+const credCat = o => (CRED_CAT_RULES.find(r => r[1].test(`${o.system} ${o.target} ${o.info}`)) || ['기타'])[0];
+
+/* 라벨 표기 — 칸 하나가 통째로 "라벨 : 값" 이면 그 값을 그 칸으로 본다 */
+const CRED_LBL = {
+  account : '아이디|계정|ID|USERNAME|USER\\s*ID|USERID|USER|사용자|로그인|LOGIN|ACCOUNT',
+  password: '비밀번호|비밀\\s*번호|비번|암호|패스워드|PW|PWD|P\\s*\\/\\s*W|PASS|PASSWORD',
+  target  : '주소|접속대상|접속|URL|링크|호스트|서버|HOST|SERVER',
+  system  : '시스템|이름|명칭|SYSTEM|NAME',
+  info    : '비고|메모|참고|설명|NOTE|MEMO'
+};
+const CRED_KEYS = ['account', 'password', 'target', 'system'];
+const CRED_RE   = {};
+Object.keys(CRED_LBL).forEach(k => {
+  CRED_RE[k] = new RegExp('^\\s*(?:' + CRED_LBL[k] + ')\\s*[:=：]\\s*(.+)$', 'i');
+});
+const CRED_ALL    = Object.keys(CRED_LBL).map(k => CRED_LBL[k]).join('|');
+const RE_CRED_LBL = new RegExp('^\\s*(?:' + CRED_ALL + ')\\s*[:=：]', 'i');
+/* "아이디: a · 비밀번호: b" 처럼 한 줄에 여러 라벨이 붙어 있으면 나눈다.
+   뒤에 라벨이 따라올 때만 자르므로 `방화벽·네트워크` 같은 분류명은 쪼개지지 않는다. */
+const RE_CRED_SPLIT = new RegExp('\\s*[·,;|]\\s*(?=(?:' + CRED_ALL + ')\\s*[:=：])', 'i');
+
+/* 표 머리글 행 — 함께 복사돼 들어오면 걷어낸다 */
+const CRED_HEAD = ['분류', '시스템', '접속대상', '아이디', '비밀번호', '비고'];
+const isCredHeadRow = ln => {
+  const c = String(ln).split('\t').map(x => x.trim()).filter(Boolean);
+  return c.length >= 3 && c.every(x => CRED_HEAD.includes(x));
+};
+/* 표에서 복사한 칸 하나를 다듬는다 — [복사] 버튼 글자와 빈칸 표시(-)를 없애되 **자리는 지킨다** */
+const credSlot = s => String(s).replace(/\s*복사\s*$/, '').trim().replace(/^[-—]$/, '');
+
+function parseCredRow(tk, ctxCat){
+  const o = {category:ctxCat || '', system:'', target:'', account:'', password:'', info:''};
+  const rest = [];
+  tk.forEach(raw => {
+    const s = String(raw).trim(); if(!s) return;
+    let m, hit = false;
+    for(const k of CRED_KEYS){
+      m = CRED_RE[k].exec(s); if(!m) continue;
+      const v = m[1].trim();
+      if(!o[k]) o[k] = v; else rest.push(v);   /* 같은 라벨이 또 나오면 버리지 말고 비고로 */
+      hit = true; break;
+    }
+    if(hit) return;
+    if((m = CRED_RE.info.exec(s))){ rest.push(m[1].trim()); return; }
+    if(!o.system && !o.target && VAULT_CATS.includes(s)){ o.category = s; return; }
+    /* "admin / abc123" 처럼 아이디와 비밀번호를 슬래시로 붙여 쓴 경우 */
+    if(!o.account && !o.password && !isTarget(s) && (m = /^(\S+)\s*\/\s*(\S+)$/.exec(s))){
+      o.account = m[1]; o.password = m[2]; return;
+    }
+    if(!o.target && isTarget(s)){ o.target = s; return; }
+    if(!o.system){ o.system = s; return; }
+    rest.push(s);
+  });
+  if(!o.account  && rest.length) o.account  = rest.shift();
+  if(!o.password && rest.length) o.password = rest.shift();
+  o.info = rest.join(' · ');
+  if(!o.category) o.category = credCat(o);
+  return o;
+}
+
+/* 한 건(chunk)을 읽는다. 표에서 복사한 줄이면 칸 자리를 그대로 믿고, 그 밖에는 추론한다. */
+function parseCredChunk(chunk, ctx){
+  const body = [];
+  String(chunk).split('\n').forEach(ln => {
+    if(!ln.trim()) return;
+    const m = RE_SEC.exec(ln.trim());                     /* 분류 머리글 "업무시스템2건" */
+    if(m){ const c = m[1].trim(); if(VAULT_CATS.includes(c)) ctx.cat = c; return; }
+    if(isCredHeadRow(ln)) return;                         /* 표 머리글 행 */
+    body.push(ln);
+  });
+  if(!body.length) return null;
+
+  /* 표에서 복사한 한 줄 — 빈 칸이 있어도 뒤 칸이 밀리지 않도록 위치를 그대로 쓴다.
+     가려진 비밀번호는 클립보드에 담기지 않아 그 칸이 비는데, 자리를 지켜야
+     비고 값이 비밀번호 칸으로 잘못 들어가지 않는다. */
+  if(body.length === 1 && body[0].indexOf('\t') >= 0){
+    const v = body[0].split('\t').map(credSlot);
+    if(v.length && v[v.length - 1] === '') v.pop();       /* [수정][삭제] 칸의 빈 자리 */
+    const withCat = v.length === 6 && (!v[0] || VAULT_CATS.includes(v[0]));
+    if(withCat || v.length === 5){
+      const c = withCat ? v : [''].concat(v);
+      const o = {category:c[0] || ctx.cat || '', system:c[1], target:c[2],
+                 account:c[3], password:c[4], info:c[5] || ''};
+      if(!o.category) o.category = credCat(o);
+      return o;
+    }
+  }
+
+  /* 그 밖 — 라벨 줄은 통째로 넘기고(칸 자르기가 비밀번호 안의 공백을 쪼개지 않게),
+     나머지 줄만 칸으로 잘라 추론한다. */
+  const tk = [];
+  body.forEach(ln => {
+    if(RE_CRED_LBL.test(ln)){
+      ln.split(RE_CRED_SPLIT).forEach(p => { if(p.trim()) tk.push(p.trim()); });
+    } else {
+      bulkCells(ln).forEach(c => tk.push(c));
+    }
+  });
+  const h = takeHead(tk, VAULT_CATS);
+  if(h.cat) ctx.cat = h.cat;
+  if(!h.tk.length) return null;
+  return parseCredRow(h.tk, ctx.cat);
+}
+
+function parseCreds(text){
+  const out = [];
+  const have = (vaultData && vaultData.credentials) || [];
+  const ctx = {cat:(cat !== '전체' && VAULT_CATS.includes(cat)) ? cat : ''};
+  bulkChunks(text, true).forEach(chunk => {
+    const o = parseCredChunk(chunk, ctx);
+    if(!o) return;
+    if(!o.system && !o.target && !o.account && !o.password) return;
+    o._dup = !!have.find(c => o.system && c.system === o.system
+                              && (!o.account || !c.account || c.account === o.account));
+    o._on = !o._dup;
+    out.push(o);
+  });
+  return out;
+}
+
+/* ---------- 수정 화면 ---------- */
+const B_COLS = {
+  contact: [
+    {k:'group',    t:'대분류',    type:'sel', opt:() => GROUPS,   w:'104px'},
+    {k:'category', t:'분류',      type:'sel', opt:() => CATS_ALL, w:'118px'},
+    {k:'company',  t:'업체·기관', w:'140px'},
+    {k:'person',   t:'담당자',    w:'78px'},
+    {k:'position', t:'직위',      w:'66px'},
+    {k:'mobile',   t:'휴대전화',  w:'118px'},
+    {k:'office',   t:'대표번호',  w:'118px'},
+    {k:'email',    t:'이메일',    w:'138px'},
+    {k:'scope',    t:'담당 업무', w:'158px'},
+    {k:'note',     t:'비고',      w:'150px'}
+  ],
+  cred: [
+    {k:'category', t:'분류',      type:'sel', opt:() => VAULT_CATS, w:'130px'},
+    {k:'system',   t:'시스템',    w:'150px'},
+    {k:'target',   t:'접속대상',  w:'240px'},
+    {k:'account',  t:'아이디',    w:'140px'},
+    {k:'password', t:'비밀번호',  w:'140px'},
+    {k:'info',     t:'비고',      w:'220px'}
+  ]
+};
+let bulkCtx = null;                     /* {kind, rows} — rows 가 null 이면 아직 붙여넣기 단계 */
+
+function openBulk(kind){
+  bulkCtx = {kind, rows:null};
+  $('#btitle').textContent = `${NAME_OF[kind]} 일괄 붙여넣기`;
+  bulkPaste();
+  $('#bulk').classList.add('on');
+}
+function closeBulk(){ $('#bulk').classList.remove('on'); bulkCtx = null; }
+
+function bulkPaste(){
+  const kind = bulkCtx.kind;
+  bulkCtx.rows = null;
+  $('#bback').style.display = 'none';
+  $('#bsave').textContent = '읽어들이기';
+  $('#bmeta').textContent = '';
+  const hint = kind === 'contact'
+    ? '표에서 <b>여러 줄을 그대로 복사해 붙여넣으면</b> 업체·담당자·직위·휴대전화·대표번호·이메일 칸을 생김새로 알아보고 자동으로 나눠 담습니다.'
+      + ' 엑셀이나 메일 본문처럼 <code>탭</code> 또는 <code>공백 두 칸 이상</code>으로 나뉜 글도 됩니다.<br>'
+      + '분류 머리글(<code>임대·건물4건</code>)이 섞여 있으면 그 아래 줄들의 분류로 자동 적용하고, 대분류는 분류에 맞춰 채웁니다.'
+    : '표에서 복사한 줄이나 한 줄에 하나씩 적은 <code>아이디: xxx</code> 형태의 글을 붙여넣으면'
+      + ' 시스템·접속대상·아이디·비밀번호를 나눠 담고 분류도 자동 판정합니다.'
+      + ' 주소(<code>https://</code> · <code>172.10.x.x:3389</code>)는 접속대상으로 알아봅니다.<br>'
+      + '<b class="bwarn">표에서 복사할 때 가려진 비밀번호는 클립보드에 담기지 않습니다</b> —'
+      + ' 비밀번호까지 함께 옮기려면 🔒 화면에서 <b>[비밀번호 모두 표시]</b> 를 먼저 누르고 복사하세요.'
+      + ' (그대로 두고 수정 화면에서 직접 입력해도 됩니다)<br>'
+      + '여러 건을 한 번에 넣을 때는 <b>건과 건 사이를 빈 줄</b>로 띄우면 확실합니다.';
+  $('#bbody').innerHTML = `
+    <p class="bhint">${hint}<br>
+      붙여넣는 즉시 아래 <b>수정 화면</b>으로 넘어갑니다 — 자동으로 채운 값은 거기서 고칠 수 있습니다.</p>
+    <textarea id="bpaste" placeholder="여기에 붙여넣기 (Ctrl+V)"></textarea>`;
+  const ta = $('#bpaste'); ta.focus();
+  ta.addEventListener('paste', () => setTimeout(() => bulkRead(ta.value), 0));
+}
+
+function bulkRead(text){
+  const rows = bulkCtx.kind === 'contact' ? parseContacts(text) : parseCreds(text);
+  if(!rows.length){ alert('읽어들일 내용을 찾지 못했습니다.\n붙여넣은 글을 확인해 주세요.'); return; }
+  bulkCtx.rows = rows;
+  bulkGrid();
+}
+
+function bulkGrid(){
+  const kind = bulkCtx.kind, cols = B_COLS[kind], rows = bulkCtx.rows;
+  $('#bback').style.display = '';
+  let warn = '';
+  if(kind === 'cred'){
+    warn = '<br><b class="bwarn">비밀번호가 화면에 그대로 보입니다 — 주변을 확인하세요.</b>';
+    const noPw = rows.filter(r => !String(r.password || '').trim()).length;
+    if(noPw) warn += `<br><b class="bwarn">비밀번호가 비어 있는 줄 ${noPw}건</b> — 표에서 복사할 때`
+      + ' 가려진 비밀번호는 클립보드에 담기지 않습니다. 🔒 화면에서 <b>[비밀번호 모두 표시]</b> 를 누르고'
+      + ' 다시 복사하거나, 여기서 직접 입력하세요.';
+  }
+  $('#bbody').innerHTML = `
+    <p class="bhint">자동으로 나눠 담은 결과입니다. 잘못 들어간 칸은 여기서 바로 고치고,
+      넣지 않을 줄은 맨 앞 체크를 해제하거나 <b>×</b> 로 지우세요.
+      이미 있는 것으로 보이는 줄은 <span class="bwarn">중복?</span> 표시와 함께 체크를 풀어 두었습니다.${warn}</p>
+    <div class="tablebox bscroll">
+      <table class="btab"><thead><tr>
+        <th style="width:34px"><input type="checkbox" id="ball"${rows.every(r => r._on) ? ' checked' : ''}></th>
+        <th style="width:32px">#</th>
+        ${cols.map(c => `<th style="min-width:${c.w}">${esc(c.t)}</th>`).join('')}
+        <th style="width:34px"></th>
+      </tr></thead>
+      <tbody>${rows.map((r, i) => bulkRowHtml(r, i, cols)).join('')}</tbody></table>
+    </div>`;
+  $('#bbody').oninput = bulkEdit;
+  $('#bbody').onclick = e => {
+    const rm = e.target.closest('[data-brm]');
+    if(!rm) return;
+    bulkCtx.rows.splice(+rm.dataset.brm, 1);
+    if(!bulkCtx.rows.length){ bulkPaste(); return; }
+    bulkGrid();
+  };
+  bulkMeta();
+}
+function bulkRowHtml(r, i, cols){
+  return `<tr data-i="${i}" class="${r._on ? '' : 'off'}${r._dup ? ' dup' : ''}">
+    <td class="bno"><input type="checkbox" data-on="${i}"${r._on ? ' checked' : ''}></td>
+    <td class="bno">${i + 1}${r._dup ? '<div class="bwarn">중복?</div>' : ''}</td>
+    ${cols.map(c => `<td>${
+      c.type === 'sel'
+        ? `<select data-b="${i}:${c.k}">${['', ...c.opt()].map(x =>
+            `<option${x === (r[c.k] || '') ? ' selected' : ''}>${esc(x)}</option>`).join('')}</select>`
+        : `<input data-b="${i}:${c.k}" value="${esc(r[c.k] || '')}">`
+    }</td>`).join('')}
+    <td class="bno"><button class="mini dgr" data-brm="${i}" title="이 줄 빼기">×</button></td>
+  </tr>`;
+}
+function bulkEdit(e){
+  const el = e.target;
+  if(el.dataset.b){
+    const i = el.dataset.b.indexOf(':');
+    bulkCtx.rows[+el.dataset.b.slice(0, i)][el.dataset.b.slice(i + 1)] = el.value;
+    return;
+  }
+  if(el.dataset.on !== undefined){
+    bulkCtx.rows[+el.dataset.on]._on = el.checked;
+    el.closest('tr').classList.toggle('off', !el.checked);
+    bulkMeta(); return;
+  }
+  if(el.id === 'ball'){
+    bulkCtx.rows.forEach(r => r._on = el.checked);
+    bulkGrid();
+  }
+}
+function bulkMeta(){
+  const rows = bulkCtx.rows;
+  const n = rows.filter(r => r._on).length;
+  const d = rows.filter(r => r._dup).length;
+  $('#bmeta').textContent = `${rows.length}줄 읽음 · ${n}건 선택` + (d ? ` · 중복 의심 ${d}건` : '');
+  $('#bsave').textContent = `${n}건 등록`;
+}
+
+function bulkApply(){
+  if(!bulkCtx) return;
+  if(!bulkCtx.rows){ const ta = $('#bpaste'); bulkRead(ta ? ta.value : ''); return; }
+  const kind = bulkCtx.kind, arr = ARR_OF(kind);
+  if(!arr){ alert('대상 원장을 찾지 못했습니다.'); return; }
+  const use = bulkCtx.rows.filter(r => r._on);
+  if(!use.length){ alert('등록할 줄이 없습니다.'); return; }
+  const key = kind === 'contact' ? 'company' : 'system';
+  if(use.some(r => !String(r[key] || '').trim())){
+    alert(`'${kind === 'contact' ? '업체·기관' : '시스템'}' 이(가) 비어 있는 줄이 있습니다. 채운 뒤 다시 눌러 주세요.`);
+    return;
+  }
+  const file = kind === 'contact' ? 'contacts.json' : 'credentials.enc.json';
+  const step = kind === 'contact' ? '[7] 연락처 저장' : '[8] 접속정보 저장';
+  if(!confirm(`${use.length}건을 ${NAME_OF[kind]} 대장에 등록합니다. 계속할까요?`)) return;
+  use.forEach(r => {
+    const o = {};
+    B_COLS[kind].forEach(c => o[c.k] = String(r[c.k] || '').trim());
+    const n = {id:nextId(PRE_OF[kind], arr), ...o};
+    if(kind === 'contact'){
+      n.source = '일괄붙여넣기'; n.srcId = ''; n.lastContact = '';
+      n.registeredAt = TODAY;   n.status = '활성';
+    } else {
+      n.updatedAt = TODAY;
+    }
+    arr.push(n);
+  });
+  const wasClean = !draftOf(kind);
+  saveOf(kind);
+  closeBulk();
+  if(wasClean) resetPanel();
+  drawTabs(); draw();
+  alert(`${use.length}건을 등록했습니다.\n\n아직 이 브라우저에만 임시 저장된 상태입니다.\n`
+      + `표 위의 [${file} 내려받기] 를 누른 뒤 정보관리.cmd ${step} 로 회수해야 원장에 들어갑니다.`);
+}
+
+$('#bsave').onclick   = bulkApply;
+$('#bback').onclick   = () => bulkPaste();
+$('#bclose').onclick  = closeBulk;
+$('#bcancel').onclick = closeBulk;
+$('#bulk').onclick    = e => { if(e.target.id === 'bulk') closeBulk(); };
+
+
+function openForm(kind, item, preset){
+  const o = item ? {...item} : {...(preset||{})};
+  formCtx = {kind, id:item ? item.id : null};
+  $('#mtitle').textContent = `${NAME_OF[kind]} ${item?'수정':'추가'}${item?` — ${item.id}`:''}`;
+  $('#mbody').innerHTML = F_OF(kind).map(f => {
+    const v = esc(o[f.k] ?? '');
+    let ctl;
+    if(f.type === 'sel'){
+      const opts = f.opt(), cur = o[f.k] ?? opts[0];
+      ctl = `<select data-f="${f.k}">${opts.map(x=>`<option${x===cur?' selected':''}>${esc(x)}</option>`).join('')}</select>`;
+    } else if(f.type === 'ta'){
+      ctl = `<textarea data-f="${f.k}" rows="2">${v}</textarea>`;
+    } else {
+      ctl = `<input type="${f.type==='date'?'date':'text'}" data-f="${f.k}" value="${v}" placeholder="${esc(f.ph||'')}">`;
+    }
+    return `<label><span>${esc(f.t)}${f.req?' *':''}</span>${ctl}</label>`;
+  }).join('');
+  $('#mdel').style.display = item ? '' : 'none';
+  $('#modal').classList.add('on');
+  const first = $('#mbody [data-f]'); if(first) first.focus();
+}
+function closeForm(){ $('#modal').classList.remove('on'); formCtx = null; }
+function afterEdit(kind){
+  const wasClean = !draftOf(kind);
+  saveOf(kind); closeForm();
+  if(wasClean) resetPanel();
+  drawTabs(); draw();
+}
+function submitForm(){
+  if(!formCtx) return;
+  const kind = formCtx.kind;
+  const o = {};
+  document.querySelectorAll('#mbody [data-f]').forEach(el => o[el.dataset.f] = el.value.trim());
+  for(const f of F_OF(kind)) if(f.req && !o[f.k]){ alert(`'${f.t}' 은(는) 반드시 입력해야 합니다.`); return; }
+  const arr = ARR_OF(kind);
+  if(!arr){ alert('대상 원장을 찾지 못했습니다.'); return; }
+  if(kind === 'contact' && !o.mobile && !o.office && !o.email
+     && !confirm('연락수단(휴대전화·대표번호·이메일)이 하나도 없습니다. 그대로 등록할까요?')) return;
+  if(kind === 'cred') o.updatedAt = TODAY;
+  if(formCtx.id){
+    const i = arr.findIndex(x => x.id === formCtx.id);
+    if(i < 0){ alert('대상을 찾지 못했습니다.'); return; }
+    arr[i] = {...arr[i], ...o};
+  } else {
+    const n = {id:nextId(PRE_OF[kind], arr), ...o};
+    if(kind === 'contact'){ n.srcId = ''; n.registeredAt = TODAY; }
+    arr.push(n);
+  }
+  afterEdit(kind);
+}
+function delItem(kind, id){
+  const arr = ARR_OF(kind); if(!arr) return;
+  const i = arr.findIndex(x => x.id === id); if(i < 0) return;
+  const o = arr[i], label = o.name || o.title || o.company || o.system || o.date || '';
+  const st = {cert:'해지', routine:'종료', contact:'종료'}[kind];
+  const tail = st
+    ? `\n\n계약·거래가 끝난 건이라면 삭제보다 상태를 ${st} 로 바꾸는 편이 이력 관리에 낫습니다.`
+    : '';
+  if(!confirm(`[${o.id}] ${label}\n\n이 항목을 ${NAME_OF[kind]} 대장에서 삭제합니다. 계속할까요?${tail}`)) return;
+  arr.splice(i,1);
+  const wasClean = !draftOf(kind);
+  saveOf(kind);
+  if(formCtx) closeForm();
+  if(wasClean) resetPanel();
+  drawTabs(); draw();
+}
+function delForm(){ if(formCtx && formCtx.id) delItem(formCtx.kind, formCtx.id); }
+function markDone(refId, due, title){
+  SCHED.logs.push({id:nextId('L', SCHED.logs), date:TODAY, title, result:'완료', refId, due, note:''});
+  afterEdit('log');
+}
+$('#msave').onclick = submitForm;
+$('#mdel').onclick = delForm;
+$('#mclose').onclick = closeForm;
+$('#mcancel').onclick = closeForm;
+$('#modal').onclick = e => { if(e.target.id === 'modal') closeForm(); };
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  if(bulkCtx) closeBulk(); else if(formCtx) closeForm();
+});
+document.addEventListener('click', e => {
+  const dl = e.target.closest('[data-del]');
+  if(dl){
+    const i = dl.dataset.del.indexOf(':');
+    delItem(dl.dataset.del.slice(0,i), dl.dataset.del.slice(i+1));
+    return;
+  }
+  const ed = e.target.closest('[data-edit]');
+  if(ed){
+    const i = ed.dataset.edit.indexOf(':');
+    const kind = ed.dataset.edit.slice(0,i), id = ed.dataset.edit.slice(i+1);
+    const arr = ARR_OF(kind); if(!arr) return;
+    const it = arr.find(x => x.id === id);
+    if(it) openForm(kind, it);
+    return;
+  }
+  const dn = e.target.closest('[data-done]');
+  if(dn){ const [id, due, ...rest] = dn.dataset.done.split('|'); markDone(id, due, rest.join('|')); }
+});
+window.addEventListener('beforeunload', e => {
+  if(schedDraft || contDraft || credDraft){ e.preventDefault(); e.returnValue = ''; }
+});
+
+drawTabs(); draw();
+</script>
+</body>
+</html>
