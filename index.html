@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>총무 정보관리</title>
+<!--
+  로그인 셸 — 이 파일에는 데이터가 없다 (REQ-0005).
+  Entra(제일엠앤에스 단일 테넌트) 로그인 → Microsoft Graph 로 회사 OneDrive 의 담당자연락처.html 원본을 읽어 표시한다.
+  열람 차단은 OneDrive 파일 공유 권한이 담당한다. 공유받지 않은 사용자는 로그인해도 내용을 받지 못한다.
+  원본: 담당자연락처\tools\pages\index.html → 정보관리.cmd [9] 로 배포
+-->
+<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@4.12.0/lib/msal-browser.min.js"
+        integrity="sha384-SesDVR6AwJdPT1MkcKvuqd4R2khvOOwlw+Bk86BrjCs/ZSXc5jCjhZo9M/e4FepS"
+        crossorigin="anonymous"></script>
+<style>
+  :root{--bg:#f4f6f9;--card:#fff;--ink:#1f2a37;--sub:#6b7280;--line:#e5e7eb;--acc:#1a4a7a;--acc-bg:#e6eef7;--bad:#b42318;--bad-bg:#fef3f2;--ok:#067647;--ok-bg:#ecfdf3;--warn:#b54708;--warn-bg:#fffaeb}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111827;--card:#1f2937;--ink:#e5e7eb;--sub:#9ca3af;--line:#374151;--acc:#93c5fd;--acc-bg:#1e3a5f;--bad:#fda29b;--bad-bg:#3b1c1a;--ok:#75e0a7;--ok-bg:#0f2e1f;--warn:#fec84b;--warn-bg:#33270b}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 "Malgun Gothic","맑은 고딕",system-ui,sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:28px}
+  h1{font-size:20px;margin:0 0 6px}
+  h2{font-size:16px;margin:28px 0 10px}
+  p{margin:6px 0}
+  .sub{color:var(--sub);font-size:13px}
+  .btn{display:inline-block;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:9px 16px;font:inherit;cursor:pointer;text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--acc)}
+  .btn.bad{background:transparent;color:var(--bad);border-color:var(--bad);padding:4px 10px;font-size:13px}
+  .btn:disabled{opacity:.5;cursor:default}
+  .msg{border-radius:8px;padding:12px 14px;margin:14px 0}
+  .msg.bad{background:var(--bad-bg);color:var(--bad)}
+  .msg.ok{background:var(--ok-bg);color:var(--ok)}
+  .msg.warn{background:var(--warn-bg);color:var(--warn)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+  th{color:var(--sub);font-weight:600}
+  .tag{display:inline-block;border-radius:4px;padding:0 6px;font-size:12px;background:var(--acc-bg);color:var(--acc)}
+  .tag.bad{background:var(--bad-bg);color:var(--bad)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input[type=text]{flex:1;min-width:200px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 12px;font:inherit}
+  #results div{padding:6px 8px;border-bottom:1px solid var(--line);cursor:pointer}
+  #results div:hover{background:var(--acc-bg)}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .table-scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card" id="app"><p><span class="spin"></span>확인 중…</p></div></div>
+<script>
+'use strict';
+/* ── 설정 ───────────────────────────────────────────────────────────── */
+const CFG = {
+  tenantId : 'c877a817-4a98-4399-acbb-0046cd07dd0c',          // 제일엠앤에스 (단일 테넌트)
+  clientId : 'ffb54d0e-3b68-4ec1-b4ec-abc92103350e',          // JEIL-AX-Portal 앱 등록
+  ownerOid : '901d3f08-3cf1-41f7-a840-0e0d6f8b8fb8',          // 파일 소유자(권한 설정 화면 노출)
+  allowDomain : 'jeilm.co.kr',                                  // 열람자 추가 허용 도메인
+  ownerPath : '최동혁/총무/담당자연락처/담당자연락처.html',      // 소유자 OneDrive 기준 경로
+  fileUrl : 'https://jeilmns-my.sharepoint.com/personal/dh_choi_jeilm_co_kr/Documents/최동혁/총무/담당자연락처/담당자연락처.html'
+};
+const VIEW_SCOPES  = ['User.Read', 'Files.Read.All'];
+const ADMIN_SCOPES = ['Files.ReadWrite', 'User.ReadBasic.All'];
+const GRAPH = 'https://graph.microsoft.com/v1.0';
+const REDIRECT = location.origin + location.pathname;          // https://cdhnayajeil-code.github.io/system/
+
+const $app = document.getElementById('app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const show = html => { $app.innerHTML = html; };
+const mode = new URLSearchParams(location.search).has('admin') ? 'admin'
+           : new URLSearchParams(location.search).has('logout') ? 'logout' : 'view';
+
+if (!window.msal) {
+  show('<h1>로그인 모듈을 불러오지 못했습니다</h1><p class="sub">네트워크(사내 방화벽·확장 프로그램)에서 cdn.jsdelivr.net 이 차단됐는지 확인해 주세요.</p>');
+  throw new Error('msal not loaded');
+}
+
+const pca = new msal.PublicClientApplication({
+  auth: {
+    clientId: CFG.clientId,
+    authority: 'https://login.microsoftonline.com/' + CFG.tenantId,
+    redirectUri: REDIRECT,
+    postLogoutRedirectUri: REDIRECT,
+    navigateToLoginRequestUrl: true
+  },
+  cache: { cacheLocation: 'sessionStorage' }                    // 창을 닫으면 토큰도 사라진다
+});
+
+async function token(scopes) {
+  const account = pca.getActiveAccount();
+  try {
+    return (await pca.acquireTokenSilent({ scopes, account })).accessToken;
+  } catch (e) {
+    if (e instanceof msal.InteractionRequiredAuthError || e.errorCode === 'interaction_required' || e.errorCode === 'consent_required') {
+      await pca.acquireTokenRedirect({ scopes, account });
+      return new Promise(() => {});                               // 페이지가 넘어간다
+    }
+    throw e;
+  }
+}
+
+async function graph(path, { scopes = VIEW_SCOPES, method = 'GET', body, headers = {}, raw = false } = {}) {
+  const t = await token(scopes);
+  const r = await fetch(path.startsWith('http') ? path : GRAPH + path, {
+    method, headers: { Authorization: 'Bearer ' + t, ...(body ? { 'Content-Type': 'application/json' } : {}), ...headers },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!r.ok) { const err = new Error('Graph ' + r.status); err.status = r.status; try { err.detail = (await r.json()).error; } catch (_) {} throw err; }
+  if (raw) return r;
+  return r.status === 204 ? null : r.json();
+}
+
+function shareToken(url) {                                       // https://learn.microsoft.com/graph/api/shares-get
+  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(url)));
+  return 'u!' + b64.replace(/=+$/, '').replace(/\//g, '_').replace(/\+/g, '-');
+}
+
+const isOwner = () => pca.getActiveAccount()?.idTokenClaims?.oid === CFG.ownerOid;
+
+/* ── 열람: OneDrive 원본을 받아 그대로 표시 ─────────────────────────── */
+async function loadApp() {
+  show('<p><span class="spin"></span>담당자연락처 원본을 불러오는 중…</p>');
+  let html = null, lastErr = null;
+  const tries = [
+    () => graph('/shares/' + shareToken(CFG.fileUrl) + '/driveItem/content', { raw: true }),
+    ...(isOwner() ? [() => graph('/me/drive/root:/' + encodeURI(CFG.ownerPath) + ':/content', { raw: true })] : [])
+  ];
+  for (const t of tries) {
+    try { html = await (await t()).text(); break; } catch (e) { lastErr = e; }
+  }
+  if (html == null) return denied(lastErr);
+
+  const acc = pca.getActiveAccount();
+  const bar =
+    '<div style="position:fixed;right:12px;bottom:12px;z-index:99999;display:flex;gap:6px;align-items:center;' +
+    'background:rgba(26,74,122,.92);color:#fff;border-radius:8px;padding:6px 10px;font:12px/1.4 \'Malgun Gothic\',sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.2)">' +
+    '<span>' + esc(acc?.name || acc?.username) + '</span>' +
+    (isOwner() ? '<a href="?admin" style="color:#fff;text-decoration:underline">권한 설정</a>' : '') +
+    '<a href="?logout" style="color:#fff;text-decoration:underline">로그아웃</a></div>';
+  /* 변경이력 처리자 표시용 — 앱의 whoAmI() 가 읽는다 (REQ-0008) */
+  const who = '<script>window.JEIL_USER=' + JSON.stringify({ name: acc?.name || '', upn: acc?.username || '' }).replace(/</g, '\\u003c') + ';</' + 'script>';
+  html = /<\/body>/i.test(html) ? html.replace(/<\/body>/i, () => who + bar + '</body>') : html + who + bar;
+  document.open(); document.write(html); document.close();
+}
+
+function denied(e) {
+  const acc = pca.getActiveAccount();
+  const code = e?.status;
+  show('<h1>열람 권한이 없습니다</h1>' +
+    '<p>' + esc(acc?.username) + ' 계정은 이 자료를 공유받지 않았습니다.</p>' +
+    '<p class="sub">열람이 필요하면 총무팀(소유자)에게 권한을 요청해 주세요.' + (code ? ' (응답 ' + code + ')' : '') + '</p>' +
+    '<p style="margin-top:18px"><a class="btn ghost" href="?logout">다른 계정으로 로그인</a></p>');
+}
+
+/* ── 권한 설정 (소유자 전용) ────────────────────────────────────────── */
+let ITEM = null;
+
+async function adminPage(note) {
+  if (!isOwner()) { show('<h1>권한 설정</h1><div class="msg bad">파일 소유자만 사용할 수 있습니다.</div><p><a class="btn ghost" href="./">돌아가기</a></p>'); return; }
+  show('<p><span class="spin"></span>권한 정보를 불러오는 중…</p>');
+  try {
+    ITEM = ITEM || await graph('/me/drive/root:/' + encodeURI(CFG.ownerPath) + '?$select=id,name,webUrl', { scopes: ADMIN_SCOPES });
+    const perms = (await graph('/me/drive/items/' + ITEM.id + '/permissions', { scopes: ADMIN_SCOPES })).value || [];
+    const rows = perms.map(p => {
+      const u = p.grantedToV2?.user || p.grantedTo?.user;
+      const multi = (p.grantedToIdentitiesV2 || p.grantedToIdentities || []).map(g => g.user?.email || g.user?.displayName).filter(Boolean);
+      const isLink = !!p.link;
+      const wide = isLink && (p.link.scope === 'anonymous' || p.link.scope === 'organization');
+      const inherited = !!p.inheritedFrom?.id || !!p.inheritedFrom?.path;
+      const who = isLink ? ('공유 링크 (' + esc(p.link.scope) + ' · ' + esc(p.link.type) + ')' + (multi.length ? '<br><span class="sub">' + esc(multi.join(', ')) + '</span>' : ''))
+                         : esc(u?.displayName || '') + '<br><span class="sub">' + esc(u?.email || p.grantedToV2?.siteUser?.loginName || '') + '</span>';
+      const role = (p.roles || []).map(r => '<span class="tag' + (r === 'owner' ? '' : '') + '">' + esc({ owner: '소유자', read: '읽기', write: '편집' }[r] || r) + '</span>').join(' ');
+      const flags = (wide ? ' <span class="tag bad">범위 넓음 — 삭제 권장</span>' : '') + (inherited ? ' <span class="tag">상위 폴더 상속</span>' : '');
+      const canDel = !(p.roles || []).includes('owner') && !inherited;
+      return '<tr><td>' + who + '</td><td>' + role + flags + '</td><td style="text-align:right">' +
+             (canDel ? '<button class="btn bad" data-del="' + esc(p.id) + '" data-name="' + esc(u?.displayName || '공유 링크') + '">삭제</button>' : '') + '</td></tr>';
+    }).join('');
+    const wideCnt = perms.filter(p => p.link && (p.link.scope === 'anonymous' || p.link.scope === 'organization')).length;
+    const inhCnt  = perms.filter(p => (p.inheritedFrom?.id || p.inheritedFrom?.path) && !(p.roles || []).includes('owner')).length;
+    show(
+      '<div class="row" style="justify-content:space-between"><h1>열람 권한 설정</h1><a class="btn ghost" href="./">자료 보기</a></div>' +
+      '<p class="sub">대상 파일: ' + esc(ITEM.name) + ' · 여기서 추가한 사람만 로그인 후 내용을 볼 수 있습니다 (OneDrive 공유 권한, 읽기 전용).</p>' +
+      (note ? '<div class="msg ' + note[0] + '">' + note[1] + '</div>' : '') +
+      (wideCnt ? '<div class="msg bad">공유 범위가 넓은 링크가 ' + wideCnt + '건 있습니다. 링크를 아는 사람이면 누구나 열 수 있으니 삭제하세요.</div>' : '') +
+      (inhCnt ? '<div class="msg warn">상위 폴더에서 상속된 권한이 ' + inhCnt + '건 있습니다. 여기서는 삭제할 수 없으니 OneDrive에서 해당 폴더의 공유를 정리하세요.</div>' : '') +
+      '<h2>현재 열람자 (' + perms.length + ')</h2><div class="table-scroll"><table><thead><tr><th>대상</th><th>권한</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '<h2>열람자 추가</h2>' +
+      '<div class="row"><input type="text" id="q" placeholder="이름 또는 이메일 (@' + esc(CFG.allowDomain) + ')" autocomplete="off"><button class="btn" id="add">추가</button></div>' +
+      '<div id="results"></div>' +
+      '<p class="sub" style="margin-top:14px">추가하면 상대방에게 알림 메일은 가지 않습니다. 주소(https://cdhnayajeil-code.github.io/system/)는 직접 전달해 주세요.</p>'
+    );
+    bindAdmin();
+  } catch (e) {
+    show('<h1>권한 설정</h1><div class="msg bad">불러오지 못했습니다: ' + esc(e.detail?.message || e.message) + '</div>' +
+         '<p class="sub">Entra 앱에 Files.ReadWrite · User.ReadBasic.All 위임 권한과 관리자 동의가 있는지 확인해 주세요.</p><p><a class="btn ghost" href="./">돌아가기</a></p>');
+  }
+}
+
+function bindAdmin() {
+  const q = document.getElementById('q'), res = document.getElementById('results');
+  let timer = null;
+  q.addEventListener('input', () => {
+    clearTimeout(timer);
+    const v = q.value.trim();
+    if (v.length < 2 || v.includes('@')) { res.innerHTML = ''; return; }
+    timer = setTimeout(async () => {
+      try {
+        const s = encodeURIComponent('"displayName:' + v.replace(/"/g, '') + '"');
+        const r = await graph('/users?$search=' + s + '&$select=displayName,mail,jobTitle,department&$top=8',
+                              { scopes: ADMIN_SCOPES, headers: { ConsistencyLevel: 'eventual' } });
+        res.innerHTML = (r.value || []).filter(u => u.mail).map(u =>
+          '<div data-mail="' + esc(u.mail) + '">' + esc(u.displayName) + ' <span class="sub">' + esc(u.mail) + ' · ' + esc([u.department, u.jobTitle].filter(Boolean).join(' ')) + '</span></div>').join('')
+          || '<div class="sub">검색 결과 없음</div>';
+      } catch (_) { res.innerHTML = '<div class="sub">사용자 검색 실패 — 이메일을 직접 입력해 주세요.</div>'; }
+    }, 300);
+  });
+  res.addEventListener('click', ev => { const d = ev.target.closest('[data-mail]'); if (d) { q.value = d.dataset.mail; res.innerHTML = ''; } });
+  document.getElementById('add').addEventListener('click', async ev => {
+    const mail = q.value.trim().toLowerCase();
+    if (!new RegExp('^[^@\\s]+@' + CFG.allowDomain.replace(/\./g, '\\.') + '$').test(mail)) {
+      return adminPage(['bad', '사내 계정(@' + esc(CFG.allowDomain) + ')만 추가할 수 있습니다.']);
+    }
+    ev.target.disabled = true;
+    try {
+      await graph('/me/drive/items/' + ITEM.id + '/invite', { scopes: ADMIN_SCOPES, method: 'POST',
+        body: { recipients: [{ email: mail }], requireSignIn: true, sendInvitation: false, roles: ['read'] } });
+      adminPage(['ok', esc(mail) + ' 을(를) 열람자로 추가했습니다.']);
+    } catch (e) { adminPage(['bad', '추가 실패: ' + esc(e.detail?.message || e.message)]); }
+  });
+  document.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = '한 번 더 눌러 삭제'; return; }   // 브라우저 confirm 대신 2단계 클릭
+    b.disabled = true;
+    try {
+      await graph('/me/drive/items/' + ITEM.id + '/permissions/' + encodeURIComponent(b.dataset.del), { scopes: ADMIN_SCOPES, method: 'DELETE' });
+      adminPage(['ok', esc(b.dataset.name) + ' 권한을 삭제했습니다.']);
+    } catch (e) { adminPage(['bad', '삭제 실패: ' + esc(e.detail?.message || e.message)]); }
+  }));
+}
+
+/* ── 시작 ───────────────────────────────────────────────────────────── */
+(async () => {
+  try {
+    await pca.initialize();
+    const r = await pca.handleRedirectPromise();
+    if (r?.account) pca.setActiveAccount(r.account);
+    if (!pca.getActiveAccount() && pca.getAllAccounts().length) pca.setActiveAccount(pca.getAllAccounts()[0]);
+
+    if (mode === 'logout') {
+      if (pca.getActiveAccount()) return pca.logoutRedirect({ account: pca.getActiveAccount() });
+      history.replaceState(null, '', REDIRECT);
+    }
+    if (!pca.getActiveAccount()) {
+      show('<h1>총무 정보관리</h1><p class="sub">제일엠앤에스 Microsoft 365 계정으로 로그인해 주세요. 열람 권한을 받은 사람만 내용을 볼 수 있습니다.</p>' +
+           '<p style="margin-top:18px"><button class="btn" id="login">Microsoft 365 로그인</button></p>');
+      document.getElementById('login').onclick = () => pca.loginRedirect({ scopes: VIEW_SCOPES, prompt: 'select_account' });
+      return;
+    }
+    if (mode === 'admin') return adminPage();
+    return loadApp();
+  } catch (e) {
+    show('<h1>로그인 오류</h1><div class="msg bad">' + esc(e.errorMessage || e.message) + '</div><p><a class="btn ghost" href="./">다시 시도</a></p>');
+  }
+})();
+</script>
+</body>
+</html>
