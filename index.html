@@ -51,6 +51,9 @@
 <body>
 <div class="wrap"><div class="card" id="app"><p><span class="spin"></span>확인 중…</p></div></div>
 <script>
+/* 셸 전체를 함수 안에 둔다 — document.write 로 띄운 앱과 같은 전역을 쓰므로,
+   전역에 const/function 을 남기면 앱의 같은 이름(esc 등)과 충돌해 앱 스크립트가 통째로 실패한다 (11-19) */
+(() => {
 'use strict';
 /* ── 설정 ───────────────────────────────────────────────────────────── */
 const CFG = {
@@ -262,6 +265,7 @@ function bindAdmin() {
   } catch (e) {
     show('<h1>로그인 오류</h1><div class="msg bad">' + esc(e.errorMessage || e.message) + '</div><p><a class="btn ghost" href="./">다시 시도</a></p>');
   }
+})();
 })();
 </script>
 </body>
